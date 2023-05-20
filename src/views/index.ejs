@@ -1,11 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tender Announcement and Participation</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
   </head>
-  <body>
-    <h1><%= title %></h1>
-    <p class="text-3xl font-bold underline bg-blue-500">Welcome to <%= title %></p>
+
+  <body class="bg-gray-100">
+    <%- include('partials/navbar') %>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
+      <div class="">
+        <h1 class="text-4xl font-bold mb-6">
+          Auction Announcement and Participation
+        </h1>
+        <p class="text-lg mb-8">
+          Welcome to our web application that allows any institution to announce
+          auctions and enables participation from any institution or individual.
+        </p>
+        <p class="text-lg mb-8">
+          With our platform, you can easily create and publish auction
+          announcements, providing all the necessary details such as
+          description, requirements, and deadline.
+        </p>
+        <p class="text-lg mb-8">
+          Interested institutions or individuals can browse through the
+          available auctions, view the details, and submit their proposals
+          within the specified timeframe.
+        </p>
+        <p class="text-lg mb-8">
+          Our application ensures transparency and fairness in the auctioning
+          process, promoting equal opportunities for all participants.
+        </p>
+        <p class="text-lg mb-8">
+          Whether you're an organization looking to announce a auction or an
+          individual/entity interested in participating, our platform provides a
+          user-friendly and efficient solution.
+        </p>
+      </div>
+      <div class="flex items-center justify-center">
+        <a
+          href="/auctions"
+          class="bg-sky-700 hover:bg-sky-900 text-white font-bold py-2 px-4 rounded"
+          >Browse auctions</a
+        >
+      </div>
+    </div>
   </body>
 </html>
