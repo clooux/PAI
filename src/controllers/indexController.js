@@ -1,5 +1,5 @@
 const getIndex = (req, res) => {
-  res.render("index", { title: "Express" });
+  res.render("Index", { title: "Express" });
 };
 
 module.exports = {

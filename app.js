@@ -4,10 +4,10 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
-var indexRouter = require("./src/routes/index");
-var auctionRouter = require("./src/routes/auction");
-var auctionsRouter = require("./src/routes/auctions");
-var completedRouter = require("./src/routes/completed");
+var indexRouter = require("./src/routes/IndexRoute");
+var auctionRouter = require("./src/routes/AuctionRoute");
+var auctionsRouter = require("./src/routes/AuctionsRoute");
+var completedRouter = require("./src/routes/CompletedRoute");
 
 var app = express();
 

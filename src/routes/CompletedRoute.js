@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
-const completedController = require("../controllers/completedController");
+const completedController = require("../controllers/CompletedController");
 
 router.get("/", completedController.getCompleted);
 

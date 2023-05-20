@@ -1,5 +1,5 @@
 const getCompleted = (req, res) => {
-  res.render("completed", { title: "Completed" });
+  res.render("Completed", { title: "Completed" });
 };
 
 module.exports = {

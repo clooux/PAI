@@ -1,9 +1,9 @@
 const getAuction = (req, res) => {
-  res.render("auction", { title: "Auction" });
+  res.render("Auction", { title: "Auction" });
 };
 
 const getAddAuction = (req, res) => {
-  res.render("auction", { title: "Auction" });
+  res.render("AddAuction", { title: "Auction" });
 };
 
 module.exports = {
