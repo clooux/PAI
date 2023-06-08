@@ -23,14 +23,10 @@ db.sequelize = sequelize;
 
 // Modele danych
 db.Auction = require("./AuctionModel.js")(sequelize);
-// db.blog = require("./blog.js")(sequelize, Sequelize);
-
-// // - Powiazania bazodanowe pomiedzy modelami
-// db.user.hasMany(db.blog); // jeden - do wielu (1-N)
-// db.blog.belongsTo(db.user); // zwiazek encji
+db.Offer = require("./OfferModel.js")(sequelize);
 
 db.sequelize
-  .sync({ force: true }) // false - nienadpisuje struktury bazy
+  .sync() // false - nienadpisuje struktury bazy
   .then(() => {
     console.log("Synced db.");
   })

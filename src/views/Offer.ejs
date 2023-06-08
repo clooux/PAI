@@ -2,13 +2,60 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>New Offer</title>
+    <title>Add Offer</title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body class="bg-gray-100">
     <%- include('partials/navbar') %>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
-      <h1 class="text-4xl font-bold mb-6">Add Offer</h1>
+      <div class="flex justify-between mb-6">
+        <h1 class="text-4xl font-bold">Add Offer</h1>
+        <a
+          href="/auctions/<%= auction.id %>"
+          class="bg-sky-700 hover:bg-sky-900 text-white font-bold py-2 px-4 rounded"
+        >
+          Return to Auction
+        </a>
+      </div>
+      <div class="flex justify-center">
+        <div class="bg-white shadow-md rounded p-6 w-1/2">
+          <form action="/auctions/<%= auction.id %>/add-offer" method="POST">
+            <div class="mb-6">
+              <label for="bidder" class="block text-gray-700 font-bold mb-2">
+                Bidder Name:
+              </label>
+              <input
+                type="text"
+                id="bidder"
+                name="bidder"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required
+              />
+            </div>
+            <div class="mb-6">
+              <label for="value" class="block text-gray-700 font-bold mb-2">
+                Offer Value:
+              </label>
+              <input
+                type="number"
+                step="0.01"
+                id="value"
+                name="value"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required
+              />
+            </div>
+            <div class="flex justify-end">
+              <button
+                type="submit"
+                class="bg-sky-700 hover:bg-sky-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Submit Offer
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </body>
 </html>

@@ -9,6 +9,7 @@ const dotenv = require("dotenv").config();
 var indexRouter = require("./src/routes/IndexRoute");
 var auctionsRouter = require("./src/routes/AuctionsRoute");
 var completedRouter = require("./src/routes/CompletedRoute");
+var addAuctionRouter = require("./src/routes/AddAuctionRoute");
 
 var app = express();
 
@@ -25,6 +26,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/auctions", auctionsRouter);
 app.use("/completed", completedRouter);
+app.use("/add-auction", addAuctionRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -1,9 +1,9 @@
 const daoAuction = require("../models/dao/AuctionDAO");
 
-const getAllAuctions = async () => {
-  const allAuctions = await daoAuction.findAll();
+const getAllActiveAuctions = async () => {
+  const allActiveAuctions = await daoAuction.findAllActive();
   // Operacje przetworzenia tych danych
-  return allAuctions;
+  return allActiveAuctions;
 };
 
 const getAuctionById = async (id) => {
@@ -12,7 +12,14 @@ const getAuctionById = async (id) => {
   return auction;
 };
 
+const getAllCompletedAuctions = async () => {
+  const allActiveAuctions = await daoAuction.findAllCompleted();
+  // Operacje przetworzenia tych danych
+  return allActiveAuctions;
+};
+
 module.exports = {
-  getAllAuctions,
+  getAllActiveAuctions,
   getAuctionById,
+  getAllCompletedAuctions,
 };

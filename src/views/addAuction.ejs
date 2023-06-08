@@ -8,9 +8,83 @@
   <body class="bg-gray-100">
     <%- include('partials/navbar') %>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
-      <h1 class="text-4xl font-bold mb-6">
-        Add Auction
-      </h1>
+      <h1 class="text-4xl font-bold mb-6">Add Auction</h1>
+      <div class="flex justify-center">
+        <div class="bg-white shadow-md rounded p-6 w-8/12">
+          <form action="/auctions/add" method="POST">
+            <div class="mb-6">
+              <label
+                for="auctionTitle"
+                class="block text-gray-700 font-bold mb-2"
+              >
+                Auction Title:
+              </label>
+              <input
+                type="text"
+                id="auctionTitle"
+                name="auctionTitle"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required
+                value="Landscaping Services"
+              />
+            </div>
+            <div class="mb-6">
+              <label
+                for="auctionStart"
+                class="block text-gray-700 font-bold mb-2"
+              >
+                Auction Start:
+              </label>
+              <input
+                type="date"
+                id="auctionStart"
+                name="auctionStart"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required
+                value="<%= Date.now() %>"
+              />
+            </div>
+            <div class="mb-6">
+              <label
+                for="auctionEnd"
+                class="block text-gray-700 font-bold mb-2"
+              >
+                Auction End:
+              </label>
+              <input
+                type="date"
+                id="auctionEnd"
+                name="auctionEnd"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required
+                value="<%= Date.now() %>"
+              />
+            </div>
+            <div class="mb-6">
+              <label
+                for="auctionDescription"
+                class="block text-gray-700 font-bold mb-2"
+              >
+                Auction Description:
+              </label>
+              <textarea
+                id="auctionDescription"
+                name="auctionDescription"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required
+              >
+              </textarea>
+            </div>
+            <div class="mb-6">
+              <label
+                for="auctionPurchaser"
+                class="block text-gray-700 font-bold mb-2"
+              >
+              </label>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </body>
 </html>

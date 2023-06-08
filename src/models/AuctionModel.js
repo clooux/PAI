@@ -2,14 +2,9 @@ const { DataTypes, Model } = require("sequelize");
 
 module.exports = (sequelize) => {
   class Auction extends Model {
-    async findAll() {
-      return await this.findAll()
-        .then((data) => {
-          return data;
-        })
-        .catch((err) => {
-          return err.message;
-        });
+    static associate({ Offer }) {
+      // define association here
+      this.hasMany(Offer, { as: "offers" });
     }
   }
 
@@ -44,6 +39,18 @@ module.exports = (sequelize) => {
       },
     },
     {
+      scopes: {
+        active: {
+          where: {
+            completed: !true,
+          },
+        },
+        completed: {
+          where: {
+            completed: true,
+          },
+        },
+      },
       sequelize,
       modelName: "Auction",
       tableName: "auctions",
