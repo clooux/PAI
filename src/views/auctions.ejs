@@ -8,9 +8,59 @@
   <body class="bg-gray-100">
     <%- include('partials/navbar') %>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
-      <h1 class="text-4xl font-bold mb-6">
-        Auctions List
-      </h1>
+      <h1 class="text-4xl font-bold mb-6">Auctions List</h1>
+      <div class="">
+        <% if(auctions.length > 0){ %>
+        <div class="bg-white shadow-md rounded my-10">
+          <table class="min-w-full leading-normal">
+            <thead>
+              <tr>
+                <th
+                  class="py-3 px-6 bg-gray-400 text-black font-medium uppercase tracking-wider"
+                >
+                  ID
+                </th>
+                <th
+                  class="py-3 px-6 bg-gray-400 text-black font-medium uppercase tracking-wider"
+                >
+                  Auction Title
+                </th>
+                <th
+                  class="py-3 px-6 bg-gray-400 text-black font-medium uppercase tracking-wider"
+                >
+                  Auction Start Date
+                </th>
+                <th
+                  class="py-3 px-6 bg-gray-400 text-black font-medium uppercase tracking-wider"
+                >
+                  Auction End Date
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <% auctions.forEach(function(auction, index) { %>
+              <tr class="<%= index % 2 === 0 ? 'bg-white' : 'bg-gray-100' %>">
+                <td class="py-4 px-6 whitespace-nowrap"><%= auction.id %></td>
+                <td class="py-4 px-6 whitespace-nowrap">
+                  <a href="/auctions/<%= auction.id %>">
+                    <%= auction.title %>
+                  </a>
+                </td>
+                <td class="py-4 px-6 whitespace-nowrap">
+                  <%= auction.start.toUTCString() %>
+                </td>
+                <td class="py-4 px-6 whitespace-nowrap">
+                  <%= auction.end.toUTCString() %>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+        <% }else{ %>
+        <h4 class="text-xl font-bold mb-6">Auctions not found</h4>
+        <% } %>
+      </div>
     </div>
   </body>
 </html>

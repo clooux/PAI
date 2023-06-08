@@ -1,12 +1,11 @@
-const getAuction = (req, res) => {
-  res.render("Auction", { title: "Auction" });
-};
+const auctionService = require("../services/AuctionService");
 
-const getAddAuction = (req, res) => {
-  res.render("AddAuction", { title: "Auction" });
+const getAuction = async (req, res) => {
+  const id = req.params.id;
+  const auction = await auctionService.getAuctionById(id);
+  res.render("Auction", { auction: auction });
 };
 
 module.exports = {
   getAuction,
-  getAddAuction,
 };

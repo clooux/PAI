@@ -2,15 +2,44 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Auction</title>
+    <title>Auction Details</title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body class="bg-gray-100">
     <%- include('partials/navbar') %>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
-      <h1 class="text-4xl font-bold mb-6">
-        Auction
-      </h1>
+      <h1 class="text-4xl font-bold mb-6">Auction Details</h1>
+      <div class="bg-white shadow-md rounded my-6">
+        <div class="p-6">
+          <h2 class="text-2xl font-bold mb-4"><%= auction.title %></h2>
+          <p class="text-gray-600 mb-4">
+            <span class="font-bold">ID:</span> <%= auction.id %>
+          </p>
+          <p class="text-gray-600 mb-4">
+            <span class="font-bold">Start Date:</span> <%= auction.start %>
+          </p>
+          <p class="text-gray-600 mb-4">
+            <span class="font-bold">End Date:</span> <%= auction.end %>
+          </p>
+          <p class="text-gray-600 mb-4">
+            <span class="font-bold">Description:</span> <%= auction.description
+            %>
+          </p>
+          <p class="text-gray-600">
+            <span class="font-bold">Purchaser:</span> <%= auction.purchaser %>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="flex items-center justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6"
+    >
+      <a
+        href="/auctions/<%= auction.id %>/add-offer"
+        class="bg-sky-700 hover:bg-sky-900 text-white font-bold py-2 px-4 rounded"
+      >
+        Add Offer
+      </a>
     </div>
   </body>
 </html>

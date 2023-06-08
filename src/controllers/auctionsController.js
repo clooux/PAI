@@ -1,5 +1,8 @@
-const getAuctions = (req, res) => {
-  res.render("Auctions", { title: "Auctions" });
+const auctionService = require("../services/AuctionService");
+
+const getAuctions = async (req, res) => {
+  const auctions = await auctionService.getAllAuctions();
+  res.render("Auctions", { auctions: auctions });
 };
 
 module.exports = {

@@ -1,5 +1,8 @@
-const getCompleted = (req, res) => {
-  res.render("Completed", { title: "Completed" });
+const auctionService = require("../services/AuctionService");
+
+const getCompleted = async (req, res) => {
+  const auctions = await auctionService.getAllAuctions();
+  res.render("Completed", { auctions: auctions });
 };
 
 module.exports = {

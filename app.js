@@ -4,8 +4,9 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
+const dotenv = require("dotenv").config();
+
 var indexRouter = require("./src/routes/IndexRoute");
-var auctionRouter = require("./src/routes/AuctionRoute");
 var auctionsRouter = require("./src/routes/AuctionsRoute");
 var completedRouter = require("./src/routes/CompletedRoute");
 
@@ -22,7 +23,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/auction", auctionRouter);
 app.use("/auctions", auctionsRouter);
 app.use("/completed", completedRouter);
 
