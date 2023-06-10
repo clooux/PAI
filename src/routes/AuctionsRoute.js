@@ -10,4 +10,6 @@ router.get("/:id", auctionsController.getAuction);
 
 router.get("/:id/add-offer", offerController.getOffer);
 
+router.post("/:id/add-offer", offerController.postOffer);
+
 module.exports = router;

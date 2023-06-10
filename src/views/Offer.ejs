@@ -4,22 +4,39 @@
     <meta charset="utf-8" />
     <title>Add Offer</title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Close button event handler
+        const closeButtons = document.querySelectorAll(".close-btn");
+        console.log(closeButtons);
+        closeButtons.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const alert = btn.closest(".relative");
+            alert.remove();
+          });
+        });
+      });
+    </script>
   </head>
   <body class="bg-gray-100">
     <%- include('partials/navbar') %>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
       <div class="flex justify-between mb-6">
         <h1 class="text-4xl font-bold">Add Offer</h1>
+        <% if(alert.success === true){ %> <%-
+        include('partials/positiveAlert')%> <% } %> <% if(alert.success ===
+        false){ %> <%-include('partials/negativeAlert') %> <% } %>
         <a
-          href="/auctions/<%= auction.id %>"
+          href="/auctions/<%= id %>"
           class="bg-sky-700 hover:bg-sky-900 text-white font-bold py-2 px-4 rounded"
         >
           Return to Auction
         </a>
       </div>
+
       <div class="flex justify-center">
         <div class="bg-white shadow-md rounded p-6 w-1/2">
-          <form action="/auctions/<%= auction.id %>/add-offer" method="POST">
+          <form action="/auctions/<%= id %>/add-offer" method="POST">
             <div class="mb-6">
               <label for="bidder" class="block text-gray-700 font-bold mb-2">
                 Bidder Name:

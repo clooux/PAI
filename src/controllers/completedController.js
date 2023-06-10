@@ -1,10 +1,17 @@
 const auctionService = require("../services/AuctionService");
 
-const getCompleted = async (req, res) => {
+const getCompletedAuction = async (req, res) => {
+  const id = req.params.id;
+  const auction = await auctionService.getAuctionById(id);
+  res.render("CompletedAuction", { auction: auction });
+};
+
+const getCompletedAuctions = async (req, res) => {
   const auctions = await auctionService.getAllCompletedAuctions();
   res.render("CompletedAuctions", { auctions: auctions });
 };
 
 module.exports = {
-  getCompleted,
+  getCompletedAuction,
+  getCompletedAuctions,
 };

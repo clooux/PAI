@@ -25,8 +25,11 @@ db.sequelize = sequelize;
 db.Auction = require("./AuctionModel.js")(sequelize);
 db.Offer = require("./OfferModel.js")(sequelize);
 
+db.Auction.hasMany(db.Offer);
+db.Offer.belongsTo(db.Auction);
+
 db.sequelize
-  .sync() // false - nienadpisuje struktury bazy
+  .sync() // false - nienadpisuje struktury bazy { force: true }
   .then(() => {
     console.log("Synced db.");
   })

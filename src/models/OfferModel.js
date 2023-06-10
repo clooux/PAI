@@ -1,11 +1,7 @@
 const { DataTypes, Model } = require("sequelize");
 
 module.exports = (sequelize) => {
-  class Offer extends Model {
-    static associate({ Auction }) {
-      this.belongsTo(Auction);
-    }
-  }
+  class Offer extends Model {}
 
   Offer.init(
     {
@@ -17,12 +13,15 @@ module.exports = (sequelize) => {
       },
       bidder: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       value: {
         type: DataTypes.FLOAT,
+        allowNull: false,
       },
       submissionDate: {
         type: DataTypes.DATE,
+        allowNull: false,
       },
     },
     {

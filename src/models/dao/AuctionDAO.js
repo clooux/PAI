@@ -1,7 +1,7 @@
 const { Auction } = require("../Sequelize");
 
 const findAllActive = async () => {
-  return await Auction.findAll()
+  return await Auction.scope("active").findAll()
     .then((data) => {
       return data;
     })
@@ -31,8 +31,19 @@ const findAllCompleted = async () => {
     });
 };
 
+const create = (auction) => {
+  return Auction.create(auction)
+    .then((data) => {
+      return data;
+    })
+    .catch((err) => {
+      return err.message;
+    });
+};
+
 module.exports = {
   findAllActive,
   findById,
   findAllCompleted,
+  create,
 };

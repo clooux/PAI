@@ -20,7 +20,18 @@ const findById = async (id) => {
     });
 };
 
+const create = (auction) => {
+  return Offer.create(auction)
+    .then((data) => {
+      return data;
+    })
+    .catch((err) => {
+      return err.message;
+    });
+};
+
 module.exports = {
   findAll,
   findById,
+  create,
 };

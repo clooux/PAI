@@ -16,6 +16,10 @@
             <span class="font-bold">ID:</span> <%= auction.id %>
           </p>
           <p class="text-gray-600 mb-4">
+            <span class="font-bold">Contracting authority:</span> <%=
+            auction.entity %>
+          </p>
+          <p class="text-gray-600 mb-4">
             <span class="font-bold">Start Date:</span> <%= auction.start %>
           </p>
           <p class="text-gray-600 mb-4">
@@ -24,9 +28,6 @@
           <p class="text-gray-600 mb-4">
             <span class="font-bold">Description:</span> <%= auction.description
             %>
-          </p>
-          <p class="text-gray-600">
-            <span class="font-bold">Purchaser:</span> <%= auction.purchaser %>
           </p>
         </div>
       </div>

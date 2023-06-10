@@ -1,12 +1,7 @@
 const { DataTypes, Model } = require("sequelize");
 
 module.exports = (sequelize) => {
-  class Auction extends Model {
-    static associate({ Offer }) {
-      // define association here
-      this.hasMany(Offer, { as: "offers" });
-    }
-  }
+  class Auction extends Model {}
 
   Auction.init(
     {
@@ -20,6 +15,14 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      entity: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      budget: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+      },
       start: {
         type: DataTypes.DATE,
         allowNull: false,
@@ -31,23 +34,21 @@ module.exports = (sequelize) => {
       description: {
         type: DataTypes.TEXT,
       },
-      purchaser: {
-        type: DataTypes.STRING,
-      },
       completed: {
         type: DataTypes.BOOLEAN,
+        allowNull: false,
       },
     },
     {
       scopes: {
         active: {
           where: {
-            completed: !true,
+            completed: 0,
           },
         },
         completed: {
           where: {
-            completed: true,
+            completed: 1,
           },
         },
       },

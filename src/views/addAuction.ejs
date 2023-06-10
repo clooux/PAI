@@ -4,83 +4,116 @@
     <meta charset="utf-8" />
     <title>Add Auction</title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Close button event handler
+        const closeButtons = document.querySelectorAll(".close-btn");
+        console.log(closeButtons);
+        closeButtons.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const alert = btn.closest(".relative");
+            alert.remove();
+          });
+        });
+      });
+    </script>
   </head>
   <body class="bg-gray-100">
     <%- include('partials/navbar') %>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
-      <h1 class="text-4xl font-bold mb-6">Add Auction</h1>
+      <div class="flex justify-between mb-6">
+        <h1 class="text-4xl font-bold mb-6">Add Auction</h1>
+        <% if(alert.success === true){ %> <%-
+        include('partials/positiveAlert')%> <% } %> <% if(alert.success ===
+        false){ %> <%-include('partials/negativeAlert') %> <% } %>
+      </div>
+
       <div class="flex justify-center">
         <div class="bg-white shadow-md rounded p-6 w-8/12">
-          <form action="/auctions/add" method="POST">
+          <form action="/add-auction" method="POST">
             <div class="mb-6">
-              <label
-                for="auctionTitle"
-                class="block text-gray-700 font-bold mb-2"
-              >
+              <label for="title" class="block text-gray-700 font-bold mb-2">
                 Auction Title:
               </label>
               <input
                 type="text"
-                id="auctionTitle"
-                name="auctionTitle"
+                id="title"
+                name="title"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 required
-                value="Landscaping Services"
               />
             </div>
             <div class="mb-6">
-              <label
-                for="auctionStart"
-                class="block text-gray-700 font-bold mb-2"
-              >
+              <label for="entity" class="block text-gray-700 font-bold mb-2">
+                Contracting authority:
+              </label>
+              <input
+                type="text"
+                id="entity"
+                name="entity"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required
+              />
+            </div>
+            <div class="mb-6">
+              <label for="budget" class="block text-gray-700 font-bold mb-2">
+                Budget:
+              </label>
+              <input
+                type="number"
+                step="0.01"
+                id="budget"
+                name="budget"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required
+              />
+            </div>
+            <div class="mb-6">
+              <label for="start" class="block text-gray-700 font-bold mb-2">
                 Auction Start:
               </label>
               <input
-                type="date"
-                id="auctionStart"
-                name="auctionStart"
+                type="datetime-local"
+                id="start"
+                name="start"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 required
-                value="<%= Date.now() %>"
               />
             </div>
             <div class="mb-6">
-              <label
-                for="auctionEnd"
-                class="block text-gray-700 font-bold mb-2"
-              >
+              <label for="end" class="block text-gray-700 font-bold mb-2">
                 Auction End:
               </label>
               <input
-                type="date"
-                id="auctionEnd"
-                name="auctionEnd"
+                type="datetime-local"
+                id="end"
+                name="end"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 required
-                value="<%= Date.now() %>"
               />
             </div>
             <div class="mb-6">
               <label
-                for="auctionDescription"
+                for="description"
                 class="block text-gray-700 font-bold mb-2"
               >
                 Auction Description:
               </label>
               <textarea
-                id="auctionDescription"
-                name="auctionDescription"
+                id="description"
+                name="description"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 required
               >
               </textarea>
             </div>
-            <div class="mb-6">
-              <label
-                for="auctionPurchaser"
-                class="block text-gray-700 font-bold mb-2"
+            <div class="flex justify-center">
+              <button
+                type="submit"
+                class="bg-sky-700 hover:bg-sky-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
-              </label>
+                Submit Auction
+              </button>
             </div>
           </form>
         </div>
