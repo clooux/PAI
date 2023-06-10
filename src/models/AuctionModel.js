@@ -52,9 +52,6 @@ module.exports = (sequelize) => {
             completed: 1,
           },
         },
-        withOffers: {
-          include: Offer,
-        },
       },
       sequelize,
       modelName: "Auction",
