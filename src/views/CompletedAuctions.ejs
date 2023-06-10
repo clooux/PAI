@@ -28,12 +28,7 @@
                 <th
                   class="py-3 px-6 bg-gray-400 text-black font-medium uppercase tracking-wider"
                 >
-                  Auction Start Date
-                </th>
-                <th
-                  class="py-3 px-6 bg-gray-400 text-black font-medium uppercase tracking-wider"
-                >
-                  Auction End Date
+                  Auction Status
                 </th>
               </tr>
             </thead>
@@ -42,16 +37,11 @@
               <tr class="<%= index % 2 === 0 ? 'bg-white' : 'bg-gray-100' %>">
                 <td class="py-4 px-6 whitespace-nowrap"><%= auction.id %></td>
                 <td class="py-4 px-6 whitespace-nowrap">
-                  <a href="/auctions/<%= auction.id %>">
+                  <a href="/completed/<%= auction.id %>">
                     <%= auction.title %>
                   </a>
                 </td>
-                <td class="py-4 px-6 whitespace-nowrap">
-                  <%= auction.start.toUTCString() %>
-                </td>
-                <td class="py-4 px-6 whitespace-nowrap">
-                  <%= auction.end.toUTCString() %>
-                </td>
+                <td class="py-4 px-6 whitespace-nowrap">Auction Finished</td>
               </tr>
               <% }) %>
             </tbody>

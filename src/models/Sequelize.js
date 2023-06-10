@@ -25,7 +25,7 @@ db.sequelize = sequelize;
 db.Auction = require("./AuctionModel.js")(sequelize);
 db.Offer = require("./OfferModel.js")(sequelize);
 
-db.Auction.hasMany(db.Offer);
+db.Auction.hasMany(db.Offer, { as: "offers" });
 db.Offer.belongsTo(db.Auction);
 
 db.sequelize

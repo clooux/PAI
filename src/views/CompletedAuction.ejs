@@ -25,11 +25,53 @@
             <span class="font-bold">Description:</span> <%= auction.description
             %>
           </p>
-          <p class="text-gray-600">
-            <span class="font-bold">Purchaser:</span> <%= auction.purchaser %>
-          </p>
         </div>
       </div>
+      <h1 class="text-4xl font-bold mb-6">Auction Offers</h1>
+      <% if(auction.offers.length > 0){ %>
+      <div class="bg-white shadow-md rounded my-10">
+        <table class="min-w-full leading-normal">
+          <thead>
+            <tr>
+              <th
+                class="py-3 px-6 bg-gray-400 text-black font-medium uppercase tracking-wider"
+              >
+                ID
+              </th>
+              <th
+                class="py-3 px-6 bg-gray-400 text-black font-medium uppercase tracking-wider"
+              >
+                Contractor
+              </th>
+              <th
+                class="py-3 px-6 bg-gray-400 text-black font-medium uppercase tracking-wider"
+              >
+                Submission Date
+              </th>
+              <th
+                class="py-3 px-6 bg-gray-400 text-black font-medium uppercase tracking-wider"
+              >
+                Cost
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% auction.offers.forEach(function(offer, index) { %>
+            <tr class="<%= index % 2 === 0 ? 'bg-white' : 'bg-gray-100' %>">
+              <td class="py-4 px-6 whitespace-nowrap"><%= offer.id %></td>
+              <td class="py-4 px-6 whitespace-nowrap"><%= offer.bidder %></td>
+              <td class="py-4 px-6 whitespace-nowrap">
+                <%= offer.submissionDate.toUTCString() %>
+              </td>
+              <td class="py-4 px-6 whitespace-nowrap"><%= offer.value %>$</td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <% }else{ %>
+      <h4 class="text-xl font-bold mb-6">Offers not found or too high</h4>
+      <% } %>
     </div>
   </body>
 </html>

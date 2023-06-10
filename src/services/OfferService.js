@@ -7,10 +7,10 @@ const getAllOffers = async () => {
   return offers;
 };
 
-const getOfferById = async (id) => {
-  const offer = await daoOffer.findById(id);
+const getOffersByAuctionId = async (auctionId) => {
+  const offers = await daoOffer.findAllByAuctionId(auctionId);
 
-  return offer;
+  return offers;
 };
 
 const postOffer = async (id, offer) => {
@@ -40,6 +40,6 @@ const postOffer = async (id, offer) => {
 
 module.exports = {
   getAllOffers,
-  getOfferById,
+  getOffersByAuctionId,
   postOffer,
 };

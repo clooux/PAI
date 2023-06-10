@@ -12,6 +12,17 @@ const getAuctionById = async (id) => {
   return auction;
 };
 
+const getAuctionByIdWithOffers = async (id) => {
+  let auction = await daoAuction.findByIdWithOffers(id);
+  if (auction.offers.length > 0) {
+    auction.offers = auction.offers.filter(
+      (offer) => offer.value <= auction.budget
+    );
+    auction.offers.sort((a, b) => a.value - b.value);
+  }
+  return auction;
+};
+
 const getAllCompletedAuctions = async () => {
   const allActiveAuctions = await daoAuction.findAllCompleted();
 
@@ -35,9 +46,8 @@ const postAuction = async (auction) => {
   }
 
   const auctionDAO = { ...auction, completed: false };
-  console.log(auctionDAO);
   const createdAuction = await daoAuction.create(auctionDAO);
-  console.log(createdAuction);
+
   if (Object.keys(createdAuction).length === 0) {
     return {
       success: false,
@@ -52,6 +62,7 @@ const postAuction = async (auction) => {
 module.exports = {
   getAllActiveAuctions,
   getAuctionById,
+  getAuctionByIdWithOffers,
   getAllCompletedAuctions,
   postAuction,
 };

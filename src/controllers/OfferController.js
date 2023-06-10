@@ -9,7 +9,6 @@ const postOffer = async (req, res) => {
   const id = req.params.id;
   const offer = req.body;
   const alert = await offerService.postOffer(id, offer);
-  console.log(alert);
   res.render("Offer", { id: id, alert: alert });
 };
 

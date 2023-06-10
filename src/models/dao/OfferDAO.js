@@ -1,25 +1,5 @@
 const { Offer } = require("../Sequelize");
 
-const findAll = async () => {
-  return await Offer.findAll()
-    .then((data) => {
-      return data;
-    })
-    .catch((err) => {
-      return err.message;
-    });
-};
-
-const findById = async (id) => {
-  return await Offer.findByPk(id)
-    .then((data) => {
-      return data;
-    })
-    .catch((err) => {
-      return err.message;
-    });
-};
-
 const create = (auction) => {
   return Offer.create(auction)
     .then((data) => {
@@ -31,7 +11,5 @@ const create = (auction) => {
 };
 
 module.exports = {
-  findAll,
-  findById,
   create,
 };

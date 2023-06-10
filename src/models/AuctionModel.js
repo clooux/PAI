@@ -1,4 +1,5 @@
 const { DataTypes, Model } = require("sequelize");
+const { Offer } = require("./Sequelize");
 
 module.exports = (sequelize) => {
   class Auction extends Model {}
@@ -50,6 +51,9 @@ module.exports = (sequelize) => {
           where: {
             completed: 1,
           },
+        },
+        withOffers: {
+          include: Offer,
         },
       },
       sequelize,
