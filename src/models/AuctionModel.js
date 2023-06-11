@@ -1,5 +1,5 @@
 const { DataTypes, Model } = require("sequelize");
-const { Offer } = require("./Sequelize");
+const { Op } = require("sequelize");
 
 module.exports = (sequelize) => {
   class Auction extends Model {}
@@ -44,12 +44,16 @@ module.exports = (sequelize) => {
       scopes: {
         active: {
           where: {
-            completed: 0,
+            end: {
+              [Op.gt]: new Date(),
+            },
           },
         },
         completed: {
           where: {
-            completed: 1,
+            end: {
+              [Op.lte]: new Date(),
+            },
           },
         },
       },

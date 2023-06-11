@@ -27,7 +27,5 @@ const postOffer = async (id, offer) => {
 };
 
 module.exports = {
-  getAllOffers,
-  getOffersByAuctionId,
   postOffer,
 };
