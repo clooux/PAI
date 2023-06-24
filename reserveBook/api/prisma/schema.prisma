@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Book {
+  id             Int              @id @default(autoincrement())
+  title          String
+  description    String
+  genre          Genre
+  publishingDate DateTime
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  AuthorsOnBooks AuthorsOnBooks[]
+}
+
+model Author {
+  id             Int              @id @default(autoincrement())
+  firstName      String
+  lastName       String
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  AuthorsOnBooks AuthorsOnBooks[]
+}
+
+model AuthorsOnBooks {
+  publication   Book   @relation(fields: [publicationId], references: [id])
+  publicationId Int
+  author        Author @relation(fields: [authorId], references: [id])
+  authorId      Int
+
+  @@id([publicationId, authorId])
+}
+
+enum Genre {
+  Art_Architecture
+  Autobiography
+  ActionAndAdventure
+  AlternateHistory
+  Anthology
+  Biography
+  Business_economics
+  Children
+  Crafts_hobbies
+  Classic
+  Cookbook
+  ComicBook
+  Diary
+  ComingOfAge
+  Dictionary
+  Crime
+  Encyclopedia
+  Drama
+  Guide
+  Fairytale
+  Health_fitness
+  Fantasy
+  History
+  GraphicNovel
+  HomeAndGarden
+  HistoricalFiction
+  Humor
+  Horror
+  Journal
+  Mystery
+  Math
+  ParanormalRomance
+  Memoir
+  PictureBook
+  Philosophy
+  Poetry
+  Prayer
+  PoliticalThriller
+  Romance
+  Textbook
+  Satire
+  ScienceFiction
+  Review
+  ShortStory
+  Science
+  Suspense
+  SelfHelp
+  Thriller
+  SportsAndLeisure
+  Western
+  Travel
+  YoungAdult
+  TrueCrime
+}
