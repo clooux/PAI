@@ -7,40 +7,62 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  HttpCode,
+  UseGuards,
 } from '@nestjs/common';
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiNoContentResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { BookService } from './book.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
+import { BookEntity } from './entities/book.entity';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('book')
+@ApiTags('book')
 export class BookController {
   constructor(private readonly bookService: BookService) {}
 
   @Post()
-  createBook(@Body() createBookDto: CreateBookDto) {
-    return this.bookService.create(createBookDto);
+  @ApiBearerAuth()
+  @ApiCreatedResponse({ type: BookEntity })
+  async createBook(@Body() createBookDto: CreateBookDto) {
+    return new BookEntity(await this.bookService.createBook(createBookDto));
   }
 
   @Get()
-  getBooks() {
-    return this.bookService.findAll();
+  @ApiOkResponse({ type: BookEntity, isArray: true })
+  async getBooks() {
+    const books = await this.bookService.getAllBooks();
+    return books.map((book) => new BookEntity(book));
   }
 
   @Get(':id')
-  getBook(@Param('id', ParseIntPipe) id: number) {
-    return this.bookService.findOne(+id);
+  @ApiOkResponse({ type: BookEntity })
+  async getBook(@Param('id', ParseIntPipe) id: number) {
+    return new BookEntity(await this.bookService.getBookById(id));
   }
 
   @Patch(':id')
+  @ApiBearerAuth()
+  @ApiOkResponse({ type: BookEntity })
   updateBook(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateBookDto: UpdateBookDto,
   ) {
-    return this.bookService.update(+id, updateBookDto);
+    return this.bookService.updateBookById(id, updateBookDto);
   }
 
   @Delete(':id')
+  @HttpCode(204)
+  @ApiBearerAuth()
+  @ApiNoContentResponse()
   deleteBook(@Param('id', ParseIntPipe) id: number) {
-    return this.bookService.remove(+id);
+    return this.bookService.deleteBookById(id);
   }
 }
