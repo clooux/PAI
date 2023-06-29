@@ -8,18 +8,18 @@ datasource db {
 }
 
 model Book {
-  id             Int      @id @default(autoincrement())
+  id             Int       @id @default(autoincrement())
   title          String
   description    String?
   genre          Genre
   publishingDate DateTime
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
   pages          Int?
   publisher      String
   language       String
-  authors        Author[] @relation("AuthorToBook")
-  order          Order[]
+  authors        Author[]  @relation("AuthorToBook")
+  storage        Storage[]
 }
 
 model Author {
@@ -43,15 +43,25 @@ model User {
 }
 
 model Order {
-  id         Int      @id @default(autoincrement())
-  startDate  DateTime
-  returnDate DateTime
-  book       Book     @relation(fields: [bookId], references: [id])
-  bookId     Int
-  user       User     @relation(fields: [userId], references: [id])
-  userId     Int
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id           Int       @id @default(autoincrement())
+  startDate    DateTime
+  returnDate   DateTime
+  returnedDate DateTime?
+  storage      Storage   @relation(fields: [storageId], references: [id])
+  storageId    Int
+  user         User      @relation(fields: [userId], references: [id])
+  userId       Int
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Storage {
+  id        Int      @id @default(autoincrement())
+  book      Book     @relation(fields: [bookId], references: [id])
+  bookId    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders    Order[]
 }
 
 enum Genre {

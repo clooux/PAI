@@ -57,7 +57,7 @@ export class AuthService {
       throw new ConflictException();
     }
 
-    const user = await this.userService.addUser(createUserDto);
+    const user = await this.userService.createUser(createUserDto);
 
     return {
       accessToken: this.jwtService.sign({

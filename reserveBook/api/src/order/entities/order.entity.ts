@@ -13,7 +13,10 @@ export class OrderEntity implements Order {
   returnDate: Date;
 
   @ApiProperty()
-  bookId: number;
+  returnedDate: Date;
+
+  @ApiProperty()
+  storageId: number;
 
   @ApiProperty()
   userId: number;

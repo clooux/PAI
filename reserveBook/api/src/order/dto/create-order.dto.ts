@@ -15,7 +15,7 @@ export class CreateOrderDto {
   @ApiProperty()
   @IsInt()
   @IsPositive()
-  bookId: number;
+  storageId: number;
 
   @ApiProperty()
   @IsInt()
