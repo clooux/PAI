@@ -1,9 +1,9 @@
-import React from 'react'
-
 function UserPage() {
   return (
-    <div>UserPage</div>
-  )
+    <div>
+      <h1 className="">UserPage</h1>
+    </div>
+  );
 }
 
-export default UserPage
+export default UserPage;
