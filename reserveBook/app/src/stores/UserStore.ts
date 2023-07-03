@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { User } from "../models/User";
 
 type State = {
   firstName: string;

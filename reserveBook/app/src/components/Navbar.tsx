@@ -1,14 +1,16 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useUserStore } from "../stores/UserStore";
 import { BiSolidUserCircle } from "react-icons/bi";
 
-interface AvatarProps {
-  firstName: string;
-  lastName: string;
-  email: string;
-}
+function Avatar() {
+  const { firstName, lastName, reset } = useUserStore();
+  const navigate = useNavigate();
+  const logout = () => {
+    localStorage.removeItem("accessToken");
+    reset();
+    navigate("/");
+  };
 
-function Avatar({ firstName, lastName, email }: AvatarProps) {
   if (firstName) {
     const initals =
       firstName.charAt(0).toUpperCase() + lastName.charAt(0).toUpperCase();
@@ -28,7 +30,7 @@ function Avatar({ firstName, lastName, email }: AvatarProps) {
             <NavLink to="/user">User</NavLink>
           </li>
           <li>
-            <a>Logout</a>
+            <a onClick={logout}>Logout</a>
           </li>
         </ul>
       </div>
@@ -48,10 +50,8 @@ function Avatar({ firstName, lastName, email }: AvatarProps) {
 }
 
 function Navbar() {
-  const { firstName, lastName, email } = useUserStore();
-
   return (
-    <div className="navbar bg-accent mb-5">
+    <div className="navbar bg-accent">
       <div className="navbar-start">
         <NavLink className="btn btn-ghost normal-case text-xl" to="/">
           reserveBook
@@ -66,7 +66,7 @@ function Navbar() {
         </NavLink>
       </div>
       <div className="navbar-end">
-        <Avatar firstName={firstName} lastName={lastName} email={email} />
+        <Avatar />
       </div>
     </div>
   );
