@@ -3,7 +3,6 @@ import Layout from "./layouts/Layout";
 import HomePage from "./pages/HomePage";
 import ErrorPage from "./pages/ErrorPage";
 import LoginPage from "./pages/LoginPage";
-import RegistrationPage from "./pages/RegistrationPage";
 import BookPage from "./pages/BookPage";
 import BookOverviewPage from "./pages/BookOverviewPage";
 import UserPage from "./pages/UserPage";
@@ -17,13 +16,11 @@ function App() {
         <Route path="books">
           <Route index element={<BookOverviewPage />} />
           <Route path=":id" element={<BookPage />} />
-          <Route path="new" element={<BookPage />} />
         </Route>
         <Route path="user">
           <Route index element={<UserPage />} />
           <Route path="borrow" element={<BorrowPage />} />
         </Route>
-        <Route path="register" element={<RegistrationPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="*" element={<ErrorPage />} />
       </Route>

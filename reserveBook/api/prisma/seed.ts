@@ -5,44 +5,44 @@ const prisma = new PrismaClient();
 const roundsOfHashing = 10;
 
 async function main() {
-  const passwordAdam = await bcrypt.hash('password', roundsOfHashing);
-  const user1 = await prisma.user.upsert({
-    where: { id: 1 },
-    update: {},
-    create: {
-      firstName: 'Adam',
-      lastName: 'Walka',
-      email: 'walka.adam@gmail.com',
-      password: passwordAdam,
-    },
-  });
+  // const passwordAdam = await bcrypt.hash('password', roundsOfHashing);
+  // const user1 = await prisma.user.upsert({
+  //   where: { id: 1 },
+  //   update: {},
+  //   create: {
+  //     firstName: 'Adam',
+  //     lastName: 'Walka',
+  //     email: 'walka.adam@gmail.com',
+  //     password: passwordAdam,
+  //   },
+  // });
 
-  const author1 = await prisma.author.upsert({
-    where: { id: 1 },
-    update: {},
-    create: {
-      firstName: 'Robert',
-      lastName: 'Martin',
-    },
-  });
+  // const author1 = await prisma.author.upsert({
+  //   where: { id: 1 },
+  //   update: {},
+  //   create: {
+  //     firstName: 'Robert',
+  //     lastName: 'Martin',
+  //   },
+  // });
 
-  const author2 = await prisma.author.upsert({
-    where: { id: 2 },
-    update: {},
-    create: {
-      firstName: 'David',
-      lastName: 'Flanagan',
-    },
-  });
+  // const author2 = await prisma.author.upsert({
+  //   where: { id: 2 },
+  //   update: {},
+  //   create: {
+  //     firstName: 'David',
+  //     lastName: 'Flanagan',
+  //   },
+  // });
 
-  const author3 = await prisma.author.upsert({
-    where: { id: 3 },
-    update: {},
-    create: {
-      firstName: 'Douglas',
-      lastName: 'Crockford',
-    },
-  });
+  // const author3 = await prisma.author.upsert({
+  //   where: { id: 3 },
+  //   update: {},
+  //   create: {
+  //     firstName: 'Douglas',
+  //     lastName: 'Crockford',
+  //   },
+  // });
 
   const book1 = await prisma.book.upsert({
     where: { id: 1 },
@@ -57,7 +57,7 @@ async function main() {
       language: 'English',
       pages: 464,
       authors: {
-        connect: { id: author1.id },
+        connect: { id: 1 },
       },
     },
   });
@@ -76,7 +76,7 @@ async function main() {
       language: 'English',
       pages: 687,
       authors: {
-        connect: { id: author2.id },
+        connect: { id: 2 },
       },
     },
   });
@@ -95,12 +95,12 @@ async function main() {
       language: 'English',
       pages: 170,
       authors: {
-        connect: { id: author3.id },
+        connect: { id: 3 },
       },
     },
   });
 
-  console.log({ author1, author2, author3, book1, book2, book3, user1 });
+  console.log({ book1, book2, book3 }); //author1, author2, author3, , user1
 }
 
 // execute the main function

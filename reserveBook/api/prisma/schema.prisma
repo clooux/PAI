@@ -20,6 +20,8 @@ model Book {
   language       String
   authors        Author[]  @relation("AuthorToBook")
   storage        Storage[]
+  BookCover      BookCover?
+  bookCoverId    Int?
 }
 
 model Author {
@@ -62,6 +64,15 @@ model Storage {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   orders    Order[]
+}
+
+model BookCover {
+  id        Int      @id @default(autoincrement())
+  imageURL  String   @unique
+  book      Book?     @relation(fields: [bookId], references: [id])
+  bookId    Int?      @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum Genre {

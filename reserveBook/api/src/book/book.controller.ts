@@ -42,6 +42,13 @@ export class BookController {
     return books.map((book) => new BookEntity(book));
   }
 
+  @Get('simple')
+  @ApiOkResponse({ type: BookEntity, isArray: true })
+  async getBooksSimple() {
+    const books = await this.bookService.getAllBooks();
+    return books.map((book) => new BookEntity(book));
+  }
+
   @Get(':id')
   @ApiOkResponse({ type: BookEntity })
   async getBook(@Param('id', ParseIntPipe) id: number) {

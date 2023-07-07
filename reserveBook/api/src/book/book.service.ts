@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { BookSimpleEntity } from './entities/bookSimple.entity';
 
 @Injectable()
 export class BookService {
@@ -45,6 +46,18 @@ export class BookService {
     }
 
     return books;
+  }
+
+  async getAllBooksWithoutDetails() {
+    const books = await this.prisma.book.findMany({});
+
+    if (!books.length) {
+      throw new NotFoundException();
+    }
+
+    return books.map((book) => {
+      return new BookSimpleEntity(book);
+    });
   }
 
   async getBookById(id: number) {
