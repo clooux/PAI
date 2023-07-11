@@ -26,11 +26,11 @@
     background-color: white;
 }
 
-/*.carousel-wrapper {*/
-/*    margin: auto;*/
-/*    flex-direction: column;*/
-/*    align-items: center;*/
-/*}*/
+.carousel-wrapper {
+    margin: auto;
+    flex-direction: column;
+    align-items: center;
+}
 
 /*.carousel-item {*/
 /*    width: 100%;*/

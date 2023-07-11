@@ -11,25 +11,25 @@ function HomePage() {
         <div className="carousel-wrapper">
             <div className="carousel carousel-center rounded-box">
                 <div className="carousel-item">
-                    <img src={img} alt="Pizza"/>
+                    <img src={img} alt="Book"/>
                 </div>
                 <div className="carousel-item">
-                    <img src={img} alt="Pizza"/>
+                    <img src={img} alt="Book"/>
                 </div>
                 <div className="carousel-item">
-                    <img src={img} alt="Pizza"/>
+                    <img src={img} alt="Book"/>
                 </div>
                 <div className="carousel-item">
-                    <img src={img} alt="Pizza"/>
+                    <img src={img} alt="Book"/>
                 </div>
                 <div className="carousel-item">
-                    <img src={img} alt="Pizza"/>
+                    <img src={img} alt="Book"/>
                 </div>
                 <div className="carousel-item">
-                    <img src={img} alt="Pizza"/>
+                    <img src={img} alt="Book"/>
                 </div>
                 <div className="carousel-item">
-                    <img src={img} alt="Pizza"/>
+                    <img src={img} alt="Book"/>
                 </div>
             </div>
         </div>
