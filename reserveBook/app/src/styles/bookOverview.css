@@ -1,0 +1,13 @@
+.books-overview-wrapper{
+}
+
+.grid-container{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-auto-rows: auto auto auto;
+    gap: 10px 10px
+}
+
+.grid-item{
+    margin-left: 5%;
+}
