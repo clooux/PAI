@@ -9,7 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { OrderModule } from './order/order.module';
 import { StorageModule } from './storage/storage.module';
 import { CoverModule } from './cover/cover.module';
-import { join, resolve } from 'path';
+import { resolve } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({

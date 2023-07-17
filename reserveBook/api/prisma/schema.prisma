@@ -18,9 +18,9 @@ model Book {
   pages          Int?
   publisher      String
   language       String
-  authors        Author[]   @relation("AuthorToBook")
-  storage        Storage[]
   BookCover      BookCover?
+  storage        Storage[]
+  authors        Author[]   @relation("AuthorToBook")
 }
 
 model Author {
@@ -47,31 +47,31 @@ model Order {
   id           Int       @id @default(autoincrement())
   startDate    DateTime
   returnDate   DateTime
-  returnedDate DateTime?
-  storage      Storage   @relation(fields: [storageId], references: [id])
-  storageId    Int
-  user         User      @relation(fields: [userId], references: [id])
   userId       Int
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
+  storageId    Int
+  returnedDate DateTime?
+  storage      Storage   @relation(fields: [storageId], references: [id])
+  user         User      @relation(fields: [userId], references: [id])
 }
 
 model Storage {
   id        Int      @id @default(autoincrement())
-  book      Book     @relation(fields: [bookId], references: [id])
   bookId    Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   orders    Order[]
+  book      Book     @relation(fields: [bookId], references: [id])
 }
 
 model BookCover {
   id        Int      @id @default(autoincrement())
   imageURL  String   @unique
-  book      Book?    @relation(fields: [bookId], references: [id])
   bookId    Int?     @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  book      Book?    @relation(fields: [bookId], references: [id])
 }
 
 enum Genre {
