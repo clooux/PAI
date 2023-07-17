@@ -28,9 +28,6 @@ export class BookEntity implements Book {
   @ApiProperty()
   pages: number;
 
-  @ApiProperty()
-  bookCoverId: number;
-
   @Exclude()
   createdAt: Date;
 
