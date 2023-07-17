@@ -8,20 +8,19 @@ datasource db {
 }
 
 model Book {
-  id             Int       @id @default(autoincrement())
+  id             Int        @id @default(autoincrement())
   title          String
   description    String?
   genre          Genre
   publishingDate DateTime
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
   pages          Int?
   publisher      String
   language       String
-  authors        Author[]  @relation("AuthorToBook")
+  authors        Author[]   @relation("AuthorToBook")
   storage        Storage[]
   BookCover      BookCover?
-  bookCoverId    Int?
 }
 
 model Author {
@@ -69,8 +68,8 @@ model Storage {
 model BookCover {
   id        Int      @id @default(autoincrement())
   imageURL  String   @unique
-  book      Book?     @relation(fields: [bookId], references: [id])
-  bookId    Int?      @unique
+  book      Book?    @relation(fields: [bookId], references: [id])
+  bookId    Int?     @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

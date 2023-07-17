@@ -6,7 +6,6 @@ import {
   Param,
   ParseIntPipe,
   Get,
-  Res,
   StreamableFile,
   Header,
 } from '@nestjs/common';
