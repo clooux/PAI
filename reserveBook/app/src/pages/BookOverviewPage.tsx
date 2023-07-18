@@ -1,33 +1,36 @@
-import React from "react";
-import img from "../files/7965b828-6745-45a6-a2ed-a9d1869d97fc.jpg"
-import '../styles/bookOverview.css'
-function BookPageItem() {
-    return <div className="card w-96 bg-base-100 shadow-xl">
-        <figure><img src={img} alt="Book"/></figure>
-        <div className="card-body">
-            <h2 className="card-title">Book</h2>
-            <p>Lorem ipsum dolor sit amet</p>
-            <div className="card-actions justify-end">
-                <button className="btn btn-primary">Buy Now</button>
-            </div>
-        </div>
-    </div>
-}
+import React from 'react';
+
+import BookCard from "../components/BookCard";
 
 function BookOverviewPage() {
-    return <div className="books-overview-wrapper">
-        <div className="grid-container">
-            <div className="grid-item">{BookPageItem()}</div>
-            <div className="grid-item">{BookPageItem()}</div>
-            <div className="grid-item">{BookPageItem()}</div>
-            <div className="grid-item">{BookPageItem()}</div>
-            <div className="grid-item">{BookPageItem()}</div>
-            <div className="grid-item">{BookPageItem()}</div>
-            <div className="grid-item">{BookPageItem()}</div>
-            <div className="grid-item">{BookPageItem()}</div>
-            <div className="grid-item">{BookPageItem()}</div>
+  return (
+      <div className="grid grid-cols-3 flex-wrap gap-4">
+        <div className="grid-item ml-5">
+          <BookCard />
         </div>
-    </div>;
+        <div className="grid-item ml-5">
+          <BookCard />
+        </div>
+        <div className="grid-item ml-5">
+          <BookCard />
+        </div>
+        <div className="grid-item ml-5">
+          <BookCard />
+        </div>
+        <div className="grid-item ml-5">
+          <BookCard />
+        </div>
+        <div className="grid-item ml-5">
+          <BookCard />
+        </div>
+        <div className="grid-item ml-5">
+          <BookCard />
+        </div>
+        <div className="grid-item ml-5">
+          <BookCard />
+        </div>
+      </div>
+  );
 }
 
 export default BookOverviewPage;
