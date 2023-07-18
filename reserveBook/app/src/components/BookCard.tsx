@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-function BookCard() {
+function BookCard({ id }) {
   const [book, setBook] = useState(null);
-  const id = 10
+
   useEffect(() => {
     fetch(`http://localhost:3000/book/${id}`)
       .then(response => response.json())
