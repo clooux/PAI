@@ -17,7 +17,7 @@ function BookPage() {
   }, [bookId]);
 
   if (!book) {
-    return <div>Loading...</div>;
+    return <div className="flex justify-center items-center h-screen">Loading...</div>;
   }
 
    return <div className='book-page'>
