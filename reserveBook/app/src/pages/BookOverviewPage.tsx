@@ -1,36 +1,48 @@
-import React, { useEffect, useState } from 'react';
-
+import { useQuery } from "@tanstack/react-query";
 import BookCard from "../components/BookCard";
+import { Book } from "../models/Book";
+import { ApiURL } from "../api/api";
+
+const getBooks = async () => {
+  const response = await fetch(ApiURL + "book/simple", {
+    method: "GET",
+  });
+  const data = (await response.json()) as Promise<Book[]>;
+  return data;
+};
 
 function BookOverviewPage() {
-  const [bookList, setBookList] = useState();
+  const {
+    data: books,
+    isLoading,
+    isError,
+  } = useQuery({ queryKey: ["books"], queryFn: getBooks });
 
-  useEffect(() => {fetch(`http://localhost:3000/book/simple`)
-    .then(response => response.json())
-    .then(data => setBookList(data))
-    .catch(error => console.log(error));
-  }, []);
-
-  if (!bookList) {
-    return <div className="flex justify-center items-center h-screen">Loading...</div>;
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <span className="loading loading-dots loading-lg"></span>
+      </div>
+    );
   }
 
-  const idList = []
-  for (let i = 0; i < bookList.length; i++) {
-    const book = bookList[i];
-    idList.push(book.id);
+  if (isError) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Couldn't find books.
+      </div>
+    );
   }
-
-  console.log(idList);
 
   return (
-      <div className="grid grid-cols-3 flex-wrap gap-4">
-        {idList.map(id => (
-          <div className="grid-item ml-5" key={id}>
-            <BookCard id={id} />
-          </div>
+    <div className="flex flex-col items-center w-full h-full bg-base-200 pt-10">
+      <h1 className="text-5xl font-bold">Books in our collection:</h1>
+      <div className="flex flex-row mt-12 flex-wrap justify-center">
+        {books.map((book) => (
+          <BookCard {...book} key={book.id} />
         ))}
       </div>
+    </div>
   );
 }
 

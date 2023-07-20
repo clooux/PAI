@@ -32,7 +32,6 @@ function BookPage() {
         </div>
       </div>
     </div>
-
   </div>;
 }
 

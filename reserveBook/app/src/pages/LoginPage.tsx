@@ -6,9 +6,10 @@ import jwtDecode from "jwt-decode";
 import LoginCard from "../components/LoginCard";
 import RegisterCard from "../components/RegisterCard";
 import { SignInUser, SignUpUser, User } from "../models/User";
+import { ApiURL } from '../models/api';
 
 const loginUser = async (user: SignInUser) => {
-  const response = await fetch(URL + "auth/login", {
+  const response = await fetch(ApiURL + "auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -21,7 +22,7 @@ const loginUser = async (user: SignInUser) => {
 };
 
 const registerUser = async (user: SignUpUser) => {
-  const response = await fetch(URL + "auth/register", {
+  const response = await fetch(ApiURL + "auth/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
