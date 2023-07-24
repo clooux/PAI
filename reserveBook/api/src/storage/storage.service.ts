@@ -11,7 +11,7 @@ export class StorageService {
     return await this.prisma.storage.create({ data: createStorageDto });
   }
 
-  async getAllStorages() {
+  async getStorageForAllBooks() {
     const storages = await this.prisma.storage.findMany();
 
     if (!storages.length) {
@@ -29,6 +29,41 @@ export class StorageService {
     }
 
     return storage;
+  }
+
+  async getStorageByBookId(bookId: number) {
+    const storage = await this.prisma.storage.findMany({ where: { bookId } });
+
+    if (!storage) {
+      throw new NotFoundException();
+    }
+
+    return storage;
+  }
+
+  async getFreeStorageByBookId(bookId: number) {
+    const storage = await this.prisma.storage.findMany({
+      where: { bookId },
+      include: { orders: true },
+    });
+
+    if (!storage) {
+      throw new NotFoundException();
+    }
+
+    const freeStorage = [];
+
+    storage.forEach((book) => {
+      if (!book.orders.length) {
+        freeStorage.push(book);
+      } else {
+        if (book.orders.find((order) => order.returnDate == null)) {
+          freeStorage.push(book);
+        }
+      }
+    });
+
+    return freeStorage;
   }
 
   async updateStorageById(id: number, updateStorageDto: UpdateStorageDto) {

@@ -2,6 +2,8 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Book, Genre } from '@prisma/client';
 import { Exclude } from 'class-transformer';
 import { AuthorEntity } from 'src/author/entities/author.entity';
+import { BookCoverEntity } from 'src/cover/entities/bookCover.entity';
+import { StorageEntity } from 'src/storage/entities/storage.entity';
 
 export class BookEntity implements Book {
   @ApiProperty()
@@ -37,11 +39,27 @@ export class BookEntity implements Book {
   @ApiProperty({ type: AuthorEntity })
   authors?: AuthorEntity[];
 
-  constructor({ authors, ...data }: Partial<BookEntity>) {
+  @ApiProperty({ type: BookCoverEntity })
+  bookCover?: BookCoverEntity;
+
+  @ApiProperty({ type: StorageEntity })
+  storage?: StorageEntity[];
+
+  constructor({ authors, storage, bookCover, ...data }: Partial<BookEntity>) {
     Object.assign(this, data);
 
-    if (authors.length) {
+    if (bookCover) {
+      this.bookCover = new BookCoverEntity(bookCover);
+    }
+
+    if (authors?.length) {
       this.authors = authors.map((author) => new AuthorEntity(author));
+    }
+
+    if (storage?.length) {
+      this.storage = storage.map((copy) => new StorageEntity(copy));
+    } else {
+      this.storage = [];
     }
   }
 }

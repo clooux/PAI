@@ -22,6 +22,7 @@ import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { BookEntity } from './entities/book.entity';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { BookSimpleEntity } from './entities/bookSimple.entity';
 
 @Controller('book')
 @ApiTags('book')
@@ -43,10 +44,10 @@ export class BookController {
   }
 
   @Get('simple')
-  @ApiOkResponse({ type: BookEntity, isArray: true })
+  @ApiOkResponse({ type: BookSimpleEntity, isArray: true })
   async getBooksSimple() {
-    const books = await this.bookService.getAllBooks();
-    return books.map((book) => new BookEntity(book));
+    const books = await this.bookService.getAllBooksWithoutDetails();
+    return books.map((book) => new BookSimpleEntity(book));
   }
 
   @Get(':id')

@@ -35,12 +35,7 @@ export class BookService {
   }
 
   async getAllBooks() {
-    const books = await this.prisma.book.findMany({
-      include: {
-        authors: true,
-        BookCover: true,
-      },
-    });
+    const books = await this.prisma.book.findMany();
 
     if (!books.length) {
       throw new NotFoundException();
@@ -66,7 +61,7 @@ export class BookService {
   async getBookById(id: number) {
     const book = await this.prisma.book.findUnique({
       where: { id },
-      include: { authors: true, BookCover: true },
+      include: { authors: true, BookCover: true, storage: true },
     });
 
     if (!book) {

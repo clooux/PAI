@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Storage } from '@prisma/client';
+import { Book, Storage } from '@prisma/client';
 import { Exclude } from 'class-transformer';
 import { OrderEntity } from 'src/order/entities/order.entity';
 
@@ -17,5 +17,12 @@ export class StorageEntity implements Storage {
   updatedAt: Date;
 
   @ApiProperty()
-  orders: OrderEntity[];
+  orders?: OrderEntity[];
+
+  @Exclude()
+  book?: Book;
+
+  constructor(partial: Partial<StorageEntity>) {
+    Object.assign(this, partial);
+  }
 }

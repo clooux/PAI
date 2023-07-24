@@ -31,6 +31,37 @@ export class OrderService {
     return order;
   }
 
+  async getOrdersByUserId(userId: number) {
+    const orders = await this.prisma.order.findMany({
+      where: { userId },
+      include: { storage: true },
+    });
+
+    if (!orders.length) {
+      throw new NotFoundException();
+    }
+
+    return orders;
+  }
+
+  async getPastOrdersByUserId(userId: number) {
+    const orders = await this.prisma.order.findMany({
+      where: { userId, returnedDate: { not: null } },
+      include: { storage: { include: { book: true } } },
+    });
+
+    return orders;
+  }
+
+  async getCurrentOrdersByUserId(userId: number) {
+    const orders = await this.prisma.order.findMany({
+      where: { userId, returnedDate: null },
+      include: { storage: { include: { book: true } } },
+    });
+
+    return orders;
+  }
+
   async updateOrderById(id: number, updateOrderDto: UpdateOrderDto) {
     const order = await this.prisma.order.findUnique({ where: { id } });
 

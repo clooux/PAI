@@ -33,6 +33,21 @@ export class OrderController {
     return this.orderService.getOrderById(id);
   }
 
+  @Get('/user/:userId')
+  getOrdersForUser(@Param('userId', ParseIntPipe) userId: number) {
+    return this.orderService.getOrdersByUserId(userId);
+  }
+
+  @Get('/user/past/:userId')
+  getPastOrdersForUser(@Param('userId', ParseIntPipe) userId: number) {
+    return this.orderService.getPastOrdersByUserId(userId);
+  }
+
+  @Get('/user/current/:userId')
+  getCurrentOrdersForUser(@Param('userId', ParseIntPipe) userId: number) {
+    return this.orderService.getCurrentOrdersByUserId(userId);
+  }
+
   @Patch(':id')
   updateOrder(
     @Param('id', ParseIntPipe) id: number,

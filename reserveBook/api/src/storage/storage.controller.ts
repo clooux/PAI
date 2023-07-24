@@ -24,22 +24,32 @@ export class StorageController {
   }
 
   @Get()
-  getStorages() {
-    return this.storageService.getAllStorages();
+  getStorageForAll() {
+    return this.storageService.getStorageForAllBooks();
   }
 
-  @Get(':id')
-  getStorage(@Param('id', ParseIntPipe) id: number) {
-    return this.storageService.getStorageById(id);
+  @Get(':bookId')
+  getStorageForBook(@Param('bookId', ParseIntPipe) bookId: number) {
+    return this.storageService.getStorageByBookId(bookId);
   }
 
-  // @Patch(':id')
-  // updateStorage(
-  //   @Param('id', ParseIntPipe) id: number,
-  //   @Body() updateStorageDto: UpdateStorageDto,
-  // ) {
-  //   return this.storageService.updateStorageById(id, updateStorageDto);
+  @Get('free/:bookId')
+  getFreeStorageForBook(@Param('bookId', ParseIntPipe) bookId: number) {
+    return this.storageService.getFreeStorageByBookId(bookId);
+  }
+
+  // @Get(':id')
+  // getStorage(@Param('id', ParseIntPipe) id: number) {
+  //   return this.storageService.getStorageById(id);
   // }
+
+  @Patch(':id')
+  updateStorage(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateStorageDto: UpdateStorageDto,
+  ) {
+    return this.storageService.updateStorageById(id, updateStorageDto);
+  }
 
   @Delete(':id')
   removeStorage(@Param('id', ParseIntPipe) id: number) {
