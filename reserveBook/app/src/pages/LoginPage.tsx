@@ -1,12 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
-import { URL } from "../api/api";
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../stores/UserStore";
 import jwtDecode from "jwt-decode";
 import LoginCard from "../components/LoginCard";
 import RegisterCard from "../components/RegisterCard";
 import { SignInUser, SignUpUser, User } from "../models/User";
-import { ApiURL } from '../models/api';
+import { ApiURL } from '../api/api';
 
 const loginUser = async (user: SignInUser) => {
   const response = await fetch(ApiURL + "auth/login", {

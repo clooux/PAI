@@ -9,7 +9,7 @@ export interface Book {
 export interface BookDetails extends Book {
   description: string;
   genre: string;
-  publishingDate: Date;
+  publishingDate: string;
   pages: number;
   publisher: string;
   language: string;
