@@ -1,6 +1,7 @@
 # Dokumentacja projektu nr 2
 
-## Osoby tworzące: 
+## Osoby tworzące:
+
 Adam Walka (backend), Michał Myśliwiec (frontend)
 
 ## Projekt reserveBook:
@@ -12,53 +13,54 @@ Zwykły użytkownik jest w stanie sprawdzić stan biblioteki i wybrać sobie poz
 
 ### Wymagania systemowe i funkcjonalne
 
-Cały projekt oparto na architekturze MVC. W której modelami są encje w bazie PostgreSQL, kontrolerem aplikacja oparta na frameworku NestJS a widokami zarządza aplikacja Reactowa. Jako sposób komunikacji pomiędzy widokiem a kontrolerem wykorzystano sposób zasad określonych przez REST API przy wykorzystaniu wbudowanej asynchronicznej funkcji fetch. W przypadku połączenia pomiędzy bazą danych a aplikacją backendową wykorzystano ORM - Prisma. Do stylizacji aplikacji frontendowej wykorzystano TailwindCSS. Autoryzację i autentykację oparto tokenie JWT i bibliotece Passport.js. Do wysyłania zdjęć na serwer wykorzystano bibliotekę Multer. 
+Cały projekt oparto na architekturze MVC. W której modelami są encje w bazie PostgreSQL, kontrolerem aplikacja oparta na frameworku NestJS a widokami zarządza aplikacja Reactowa. Jako sposób komunikacji pomiędzy widokiem a kontrolerem wykorzystano sposób zasad określonych przez REST API przy wykorzystaniu wbudowanej asynchronicznej funkcji fetch. W przypadku połączenia pomiędzy bazą danych a aplikacją backendową wykorzystano ORM - Prisma. Do stylizacji aplikacji frontendowej wykorzystano TailwindCSS. Autoryzację i autentykację oparto tokenie JWT i bibliotece Passport.js. Do wysyłania zdjęć na serwer wykorzystano bibliotekę Multer.
 
-Funkcjonalności: 
-1. Wspólne: 
-	- Logowanie użytkownika
-	- Rejestracja użytkownika 
-	- Informacje na temat systemu
-	- Wyświetlanie listy książek
-	- Wyświetlanie informacji na temat pojedynczej książki
-	- Wyświetlanie informacji o stanie magazynowym książki
-	- Informacje o użytkowniku
-2. Aplikacja kliencka: 
-	- Wyświetlanie informacji na temat aktualnych wypożyczeń
-	- Wyświetlanie informacji na temat poprzednich wypożyczeń
-	- Możliwość rezerwacji książki
+Funkcjonalności:
+
+1. Wspólne:
+   - Logowanie użytkownika
+   - Rejestracja użytkownika
+   - Informacje na temat systemu
+   - Wyświetlanie listy książek
+   - Wyświetlanie informacji na temat pojedynczej książki
+   - Wyświetlanie informacji o stanie magazynowym książki
+   - Informacje o użytkowniku
+2. Aplikacja kliencka:
+   - Wyświetlanie informacji na temat aktualnych wypożyczeń
+   - Wyświetlanie informacji na temat poprzednich wypożyczeń
+   - Możliwość rezerwacji książki
 3. Aplikacja administratorska
-	- Wyświetlanie stanu magazynu
-	- Wyświetlanie wszystkich aktualnych wypożyczeń
-	- Wyświetlanie zakończonych wypożyczeń
-	- Wpisanie daty oddania wypożyczenia
-	- Dodawanie/Usuwanie/Zmiana książek
-	- Dodawanie/Usuwanie/Zmiana stanu magazynowego
-	- Dodawanie zdjęć okładek książek
-	- Zmiana terminów wypożyczenia
-	- Dodawanie/Usuwanie/Zmiana autorów książek
+   - Wyświetlanie stanu magazynu
+   - Wyświetlanie wszystkich aktualnych wypożyczeń
+   - Wyświetlanie zakończonych wypożyczeń
+   - Wpisanie daty oddania wypożyczenia
+   - Dodawanie/Usuwanie/Zmiana książek
+   - Dodawanie/Usuwanie/Zmiana stanu magazynowego
+   - Dodawanie zdjęć okładek książek
+   - Zmiana terminów wypożyczenia
+   - Dodawanie/Usuwanie/Zmiana autorów książek
 
 ### Analiza zagadnienia i jego modelowanie
 
 Ogólny diagram związków encji
 
-![database_full_view][[images/db_full.png]]
+![database_full_view](images/db_full.png)
 
 Diagram związków encji dla książki
 
-![database_book][[images/db_book.png]]
+![database_book](images/db_book.png)
 
 Diagram związków encji dla użytkownika
 
-![database_user][[images/db_user.png]]
+![database_user](images/db_user.png)
 
-W momencie otrzymania zapytania do serwera, aplikacja serwerowa wybiera odpowiednią ścieżkę która prowadzi do konkretnej metody konkretnego kontrolera. Kontroler odwołuje się do metod serwisu przypisanego do kontrolera. Serwisy wykonują odpowiednią przypisaną logikę biznesową.  W większości przypadków serwisy korzystają z serwisu biblioteki ORM która posiada dostęp do danych biznesowych. Wartość wyjściowa z serwisu zwracana jest do kontrolera który zwraca wyniki w postaci odpowiedzi na zapytanie.
+W momencie otrzymania zapytania do serwera, aplikacja serwerowa wybiera odpowiednią ścieżkę która prowadzi do konkretnej metody konkretnego kontrolera. Kontroler odwołuje się do metod serwisu przypisanego do kontrolera. Serwisy wykonują odpowiednią przypisaną logikę biznesową. W większości przypadków serwisy korzystają z serwisu biblioteki ORM która posiada dostęp do danych biznesowych. Wartość wyjściowa z serwisu zwracana jest do kontrolera który zwraca wyniki w postaci odpowiedzi na zapytanie.
 
-Do dokumentacji listy zasobów wykorzystano narzędzie Swagger. Dostęp do tej dokumentacji można uzyskać poprzez wejście na podstronę `/api` serwera. Taki sposób dokumentacji ułatwia pracę pomiędzy stroną backendową i frontendową. Wynika to z prostoty dostępu jak i sprawdzenia możliwości aplikacji serwerowej. Ze względu na dużą ilość endpointów oraz wykorzystanych przy nich encji zdecydowano się nie wypisywać ich w poniższym pliku. 
+Do dokumentacji listy zasobów wykorzystano narzędzie Swagger. Dostęp do tej dokumentacji można uzyskać poprzez wejście na podstronę `/api` serwera. Taki sposób dokumentacji ułatwia pracę pomiędzy stroną backendową i frontendową. Wynika to z prostoty dostępu jak i sprawdzenia możliwości aplikacji serwerowej. Ze względu na dużą ilość endpointów oraz wykorzystanych przy nich encji zdecydowano się nie wypisywać ich w poniższym pliku.
 
 ### Implementacja
 
-PostgreSQL został wybrany na bazę danych w projekcie. Baza danych hostowana jest za darmo platformie wdrożeniowej Railway. Zdecydowano się na taką opcję ze względu na łatwiejszy dostęp przez obydwie osoby tworzące obiekt. Takie rozwiązanie oznacza te same dane ale co istotniejsze to samo odzwierciedlenie w encjach. Do połączenia wykorzystano ORM o nazwie Prisma. Przy instalacji tworzony jest folder `prisma` w którym zawarte są: źródło danych, generator i model danych. Poniżej znajduje się kawałek kodu z wymienionymi wyżej składowymi: 
+PostgreSQL został wybrany na bazę danych w projekcie. Baza danych hostowana jest za darmo platformie wdrożeniowej Railway. Zdecydowano się na taką opcję ze względu na łatwiejszy dostęp przez obydwie osoby tworzące obiekt. Takie rozwiązanie oznacza te same dane ale co istotniejsze to samo odzwierciedlenie w encjach. Do połączenia wykorzystano ORM o nazwie Prisma. Przy instalacji tworzony jest folder `prisma` w którym zawarte są: źródło danych, generator i model danych. Poniżej znajduje się kawałek kodu z wymienionymi wyżej składowymi:
 
 ```js
 generator client {
@@ -87,98 +89,98 @@ model Book {
 }
 ```
 
-Po stronie serwera wykorzystano bibliotekę NestJS która oparta jest na bibliotece Express bazującej na środowisku Node.js. W celu korzystania z ORM'a w aplikacji trzeba stworzyć folder `prisma` wraz z modułem i serwisem. Moduł potrzebny będzie do dalszego wykorzystania instancji napisanego serwisu. Serwis będzie rozszerzał interfejs `PrismaClient` i implementował metodę `OnModuleInit `która będzie sprawi, iż serwis zachowa się jak singleton. Poniżej znajduje się implementacja serwisu: 
+Po stronie serwera wykorzystano bibliotekę NestJS która oparta jest na bibliotece Express bazującej na środowisku Node.js. W celu korzystania z ORM'a w aplikacji trzeba stworzyć folder `prisma` wraz z modułem i serwisem. Moduł potrzebny będzie do dalszego wykorzystania instancji napisanego serwisu. Serwis będzie rozszerzał interfejs `PrismaClient` i implementował metodę `OnModuleInit `która będzie sprawi, iż serwis zachowa się jak singleton. Poniżej znajduje się implementacja serwisu:
 
 ```js
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {
-  async onModuleInit() {
-    await this.$connect();
-  }
+  async onModuleInit() {
+    await this.$connect();
+  }
 
-  async enableShutdownHooks(app: INestApplication) {
-    this.$on('beforeExit', async () => {
-      await app.close();
-    });
-  }
+  async enableShutdownHooks(app: INestApplication) {
+    this.$on("beforeExit", async () => {
+      await app.close();
+    });
+  }
 }
 ```
 
 NestJS w odróżnieniu od Expressa posiada zdefiniowaną strukturę pokazaną na zdjęciu poniżej:
-![nest_modules][[images/nest_module.png]]
+![nest_modules](images/nest_module.png)
 
-Każda aplikacja napisana w tym frameworku posiada jeden główny moduł. Jest on punktem wyjścia którego Nest używa do zbudowania grafu aplikacji - wewnętrznej struktury danych. Nest używa tego do rozwiązywania relacji i zależności między modułami i dostawcami. Poniżej kod głównego modułu: 
+Każda aplikacja napisana w tym frameworku posiada jeden główny moduł. Jest on punktem wyjścia którego Nest używa do zbudowania grafu aplikacji - wewnętrznej struktury danych. Nest używa tego do rozwiązywania relacji i zależności między modułami i dostawcami. Poniżej kod głównego modułu:
+
 ```js
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { PrismaModule } from './prisma/prisma.module';
-import { BookModule } from './book/book.module';
-import { AuthorModule } from './author/author.module';
-import { UserModule } from './user/user.module';
-import { AuthModule } from './auth/auth.module';
-import { OrderModule } from './order/order.module';
-import { StorageModule } from './storage/storage.module';
-import { CoverModule } from './cover/cover.module';
-import { resolve } from 'path';
-import { ServeStaticModule } from '@nestjs/serve-static';
-  
-@Module({
-  imports: [
-    PrismaModule,
-    BookModule,
-    AuthorModule,
-    UserModule,
-    AuthModule,
-    OrderModule,
-    StorageModule,
-    CoverModule,
-    ServeStaticModule.forRoot(
-      (() => {
-        const publicDir = resolve('./files/');
-        const servePath = '/files';
-        return {
-          rootPath: publicDir,
-          serveRoot: servePath,
-          exclude: ['/api*'],
-        };
-      })(),
-    ),
-  ],
-  controllers: [AppController],
-  providers: [AppService],
-})
+import { Module } from "@nestjs/common";
+import { AppController } from "./app.controller";
+import { AppService } from "./app.service";
+import { PrismaModule } from "./prisma/prisma.module";
+import { BookModule } from "./book/book.module";
+import { AuthorModule } from "./author/author.module";
+import { UserModule } from "./user/user.module";
+import { AuthModule } from "./auth/auth.module";
+import { OrderModule } from "./order/order.module";
+import { StorageModule } from "./storage/storage.module";
+import { CoverModule } from "./cover/cover.module";
+import { resolve } from "path";
+import { ServeStaticModule } from "@nestjs/serve-static";
 
+@Module({
+  imports: [
+    PrismaModule,
+    BookModule,
+    AuthorModule,
+    UserModule,
+    AuthModule,
+    OrderModule,
+    StorageModule,
+    CoverModule,
+    ServeStaticModule.forRoot(
+      (() => {
+        const publicDir = resolve("./files/");
+        const servePath = "/files";
+        return {
+          rootPath: publicDir,
+          serveRoot: servePath,
+          exclude: ["/api*"],
+        };
+      })()
+    ),
+  ],
+  controllers: [AppController],
+  providers: [AppService],
+})
 export class AppModule {}
 ```
 
-Plikiem inicjalizującym całą aplikację jest  `main.ts`, w którym importowany jest główny moduł. W tym miejscu możemy również skonfigurować aplikację. W przypadku opisywanej aplikacji, włączono CORS, pipe który transformuje dane do potrzebnej formy ,  interceptor który przechwytuje zapytania i transformuje dane wyjściowe i wejściowe do zaznaczonych w kodzie. Ostatnią rzeczą inicjalizacyjną jest moduł Swaggera, który stanowi dokumentację API. 
+Plikiem inicjalizującym całą aplikację jest `main.ts`, w którym importowany jest główny moduł. W tym miejscu możemy również skonfigurować aplikację. W przypadku opisywanej aplikacji, włączono CORS, pipe który transformuje dane do potrzebnej formy , interceptor który przechwytuje zapytania i transformuje dane wyjściowe i wejściowe do zaznaczonych w kodzie. Ostatnią rzeczą inicjalizacyjną jest moduł Swaggera, który stanowi dokumentację API.
 
 ```js
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  app.enableCors();
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
-  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+  const app = await NestFactory.create(AppModule);
+  app.enableCors();
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
-  const config = new DocumentBuilder()
-    .setTitle('Book Reservation System')
-    .setDescription('This is swagger for Book Reservation System')
-    .setVersion('0.1')
-    .addBearerAuth()
-    .build();
+  const config = new DocumentBuilder()
+    .setTitle("Book Reservation System")
+    .setDescription("This is swagger for Book Reservation System")
+    .setVersion("0.1")
+    .addBearerAuth()
+    .build();
 
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
-  await app.listen(3000);
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup("api", app, document);
+  await app.listen(3000);
 }
 bootstrap();
 ```
 
-Każdy katalog to osobny zasób który łączony jest przez własny moduł jest z modułem głównym. Katalogi posiadają strukturę pokazaną na poniższym zdjęciu: 
-![nest_resource][[images/nest_resource.png]]
+Każdy katalog to osobny zasób który łączony jest przez własny moduł jest z modułem głównym. Katalogi posiadają strukturę pokazaną na poniższym zdjęciu:
+![nest_resource](images/nest_resource.png)
 
-Większość zasobów posiada bardzo podobną strukturę i budowę. Kontroler który przekazuje informacje zawarte w zapytaniu do serwisu który łączy się z bazą danych przez serwis ORM, a na samym końcu zwracający informacje otrzymane z bazy danych. Poniżej przykład dla tworzenia książki: 
+Większość zasobów posiada bardzo podobną strukturę i budowę. Kontroler który przekazuje informacje zawarte w zapytaniu do serwisu który łączy się z bazą danych przez serwis ORM, a na samym końcu zwracający informacje otrzymane z bazy danych. Poniżej przykład dla tworzenia książki:
 
 ```js
 @Controller('book')
@@ -227,7 +229,7 @@ export class BookService {
   }
 ```
 
-Ważnym elementem projektu jest Autentykacja dlatego poniżej przedstawiono funkcję logowania: 
+Ważnym elementem projektu jest Autentykacja dlatego poniżej przedstawiono funkcję logowania:
 
 ```js
 async login(email: string, password: string): Promise<AuthEntity> {
@@ -254,7 +256,8 @@ async login(email: string, password: string): Promise<AuthEntity> {
   }
 ```
 
-Na początku wykonuje się sprawdzenie czy podany użytkownik istnieje. W przypadku gdy nie istnieje zwracany jest kod błędu nie znaleziono. Następuje sprawdzenie czy podane hasło jest równe temu hasło które wysłał użytkownik. Gdy hasło jest niepoprawne zwracany jest błąd autoryzacji. W innym przypadku zwracany jest podpisany token JWT wraz z podstawowymi informacjami o użytkowniku.  Wykorzystywany jest serwis JWT wbudowany w Nest. Inicjalizowany jest on za pomocą  importu w module zasobu auth.
+Na początku wykonuje się sprawdzenie czy podany użytkownik istnieje. W przypadku gdy nie istnieje zwracany jest kod błędu nie znaleziono. Następuje sprawdzenie czy podane hasło jest równe temu hasło które wysłał użytkownik. Gdy hasło jest niepoprawne zwracany jest błąd autoryzacji. W innym przypadku zwracany jest podpisany token JWT wraz z podstawowymi informacjami o użytkowniku. Wykorzystywany jest serwis JWT wbudowany w Nest. Inicjalizowany jest on za pomocą importu w module zasobu auth.
+
 ```js
 JwtModule.register({
       secret: process.env.JWT_SECRET,
@@ -262,7 +265,8 @@ JwtModule.register({
     }),
 ```
 
-Dodatkowo wykorzystywana jest strategia z bilbioteki Passport - `PassportStrategy`. Która przechwytuje i waliduje przesyłany token. 
+Dodatkowo wykorzystywana jest strategia z bilbioteki Passport - `PassportStrategy`. Która przechwytuje i waliduje przesyłany token.
+
 ```js
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
@@ -290,38 +294,39 @@ Głównym elementem jest konfiguracja biblioteki Multer odpowiedzialnej za spraw
 
 ```js
 export const multerOptions: MulterOptions = {
-  limits: {
-    fileSize: 5242880,
-  },
-  fileFilter(req, file, callback) {
-    if (file.mimetype.match(/\/(jpg|png|jpeg)$/)) {
-      callback(null, true);
-    } else {
-      callback(
-        new HttpException('Unsupported file type', HttpStatus.BAD_REQUEST),
-        false,
-      );
-    }
-  },
+  limits: {
+    fileSize: 5242880,
+  },
+  fileFilter(req, file, callback) {
+    if (file.mimetype.match(/\/(jpg|png|jpeg)$/)) {
+      callback(null, true);
+    } else {
+      callback(
+        new HttpException("Unsupported file type", HttpStatus.BAD_REQUEST),
+        false
+      );
+    }
+  },
 
-  storage: diskStorage({
-    destination(req, file, callback) {
-      const uploadPath = process.env.UPLOAD_DIR;
-      if (!fs.existsSync(uploadPath)) {
-        fs.mkdirSync(uploadPath);
-      }
-      callback(null, uploadPath);
-    },
-    filename(req, file, callback) {
-      callback(null, generateFileName(file.originalname));
-    },
-  }),
+  storage: diskStorage({
+    destination(req, file, callback) {
+      const uploadPath = process.env.UPLOAD_DIR;
+      if (!fs.existsSync(uploadPath)) {
+        fs.mkdirSync(uploadPath);
+      }
+      callback(null, uploadPath);
+    },
+    filename(req, file, callback) {
+      callback(null, generateFileName(file.originalname));
+    },
+  }),
 };
 ```
 
-Opcje wykorzystywane są w dekoratorze endpointu `@UseInterceptors(FileInterceptor('cover', multerOptions))`. 
+Opcje wykorzystywane są w dekoratorze endpointu `@UseInterceptors(FileInterceptor('cover', multerOptions))`.
 
-Po stronie klienta wykorzystano bilbiotekę React wraz takimi bilbiotekami jak: 
+Po stronie klienta wykorzystano bilbiotekę React wraz takimi bilbiotekami jak:
+
 - React Router
 - TailwindCSS
 - DaisyUI
@@ -329,8 +334,8 @@ Po stronie klienta wykorzystano bilbiotekę React wraz takimi bilbiotekami jak:
 - React Query
 - React Hook Form
 
-TailwindCSS wraz z DaisyUI odpowiadają za wygląd całej aplikacji. 
-Plikiem w którym inicjalizowana jest aplikacja jest `main.tsx`. Znajdują się w nim providery do tarasowania poprzez bibliotekę React Router, jak i bibliotekę do fetchowania danych - React Query. Która znacznie ułatwia operowanie pobieranymi danymi. 
+TailwindCSS wraz z DaisyUI odpowiadają za wygląd całej aplikacji.
+Plikiem w którym inicjalizowana jest aplikacja jest `main.tsx`. Znajdują się w nim providery do tarasowania poprzez bibliotekę React Router, jak i bibliotekę do fetchowania danych - React Query. Która znacznie ułatwia operowanie pobieranymi danymi.
 
 ```jsx
 const queryClient = new QueryClient();
@@ -397,7 +402,7 @@ function App() {
 }
 ```
 
-Zustand to menadżer stanu przechowywujący informacje na temat zalogowanego użytkownika. W poniższym kodzie tworzony jest stan początkowy wraz z możliwymi akcjami do wykonania, oraz główna część czyli stworzenie pojedynczego magazynu danych dla całej aplikacji. 
+Zustand to menadżer stanu przechowywujący informacje na temat zalogowanego użytkownika. W poniższym kodzie tworzony jest stan początkowy wraz z możliwymi akcjami do wykonania, oraz główna część czyli stworzenie pojedynczego magazynu danych dla całej aplikacji.
 
 ```js
 type State = {
@@ -430,7 +435,8 @@ export const useUserStore = create<State & Actions>()((set) => ({
 }));
 ```
 
-React Router jest bardzo przydatny przy pobieraniu danych, dzięki wykorzystaniu hooków `useQuery` i `useMutation` jesteśmy w stanie dowiedzieć się w jakim stanie jest nasze zapytanie a także możemy bezpośrednio korzystać z danych. 
+React Router jest bardzo przydatny przy pobieraniu danych, dzięki wykorzystaniu hooków `useQuery` i `useMutation` jesteśmy w stanie dowiedzieć się w jakim stanie jest nasze zapytanie a także możemy bezpośrednio korzystać z danych.
+
 ```js
 const {
     data: book,
@@ -441,7 +447,7 @@ const {
     queryFn: async () => getBook(bookId as string),
   });
 
-  
+
   const { mutate: reservation } = useMutation({
     mutationFn: reserveBook,
     onSuccess: () => {
@@ -451,6 +457,7 @@ const {
 ```
 
 React Hook Form natomiast to proste tworzenie formularzy i przekazywanie ich stanu. Poniżej przykład logowania:
+
 ```jsx
  const {
     register,
@@ -497,16 +504,16 @@ React Hook Form natomiast to proste tworzenie formularzy i przekazywanie ich sta
     </div>
 ```
 
-
 ### Podsumowanie
 
-Stworzona aplikacja spełnia zawężone wymagania biznesowe. Pokazuje możliwość dalszego rozwoju i produkcji bardziej zaawansowanej strony. Jednakże spełnia jedno z najważniejszych założeń początkowych faz projektów czyli wypuszczenia jej do użytkowników aby umożliwić im łatwiejszy dostęp do wypożyczania książek. Aplikacja posiada działające funkcjonalności z części wspólnej jak i z części aplikacji klienckiej. Po stronie serwera zaimplementowano wszystkie główne funkcjonalności, mimo to stworzenie części administratorskiej po stronie klienta równałoby się ze stworzeniem de facto całej osobnej aplikacji. 
+Stworzona aplikacja spełnia zawężone wymagania biznesowe. Pokazuje możliwość dalszego rozwoju i produkcji bardziej zaawansowanej strony. Jednakże spełnia jedno z najważniejszych założeń początkowych faz projektów czyli wypuszczenia jej do użytkowników aby umożliwić im łatwiejszy dostęp do wypożyczania książek. Aplikacja posiada działające funkcjonalności z części wspólnej jak i z części aplikacji klienckiej. Po stronie serwera zaimplementowano wszystkie główne funkcjonalności, mimo to stworzenie części administratorskiej po stronie klienta równałoby się ze stworzeniem de facto całej osobnej aplikacji.
 
-Z większych trudności po stronie backendowej okazały się: obsługa tokenów JWT  i biblioteki Passport oraz umieszczanie wysyłanych zdjęć okładek na serwer. Dodatkowo problemem przy okazji budowania bardziej zaawansowanej struktury bazy danych, przez brak wiedzy i doświadczenia w tym zakresie.
+Z większych trudności po stronie backendowej okazały się: obsługa tokenów JWT i biblioteki Passport oraz umieszczanie wysyłanych zdjęć okładek na serwer. Dodatkowo problemem przy okazji budowania bardziej zaawansowanej struktury bazy danych, przez brak wiedzy i doświadczenia w tym zakresie.
 
-Jeżeli chodzi o frontend to problem ukazał się przy okazji korzystania z biblioteki Tailwind pomimo, iż odzwierciedla klasy CSS jest to całkowicie inny sposób pisania styli. Początkowo trudności wystąpiły przy korzystaniu biblioteki React Query. 
+Jeżeli chodzi o frontend to problem ukazał się przy okazji korzystania z biblioteki Tailwind pomimo, iż odzwierciedla klasy CSS jest to całkowicie inny sposób pisania styli. Początkowo trudności wystąpiły przy korzystaniu biblioteki React Query.
 
 Oczywiście rozwój powinien następować w kierunku stworzenia części administratorskiej jednakże, pomimo wypisania dużej części funkcji aplikacji możliwe jest:
+
 - stworzenie osobnej encji kategorii, która łączyłaby kilka gatunków w sobie
 - możliwość filtracji po autorach czy dodanych kategoriach, czy innych właściwościach
 - analityka i śledzenie zachowań użytkownika
