@@ -14,13 +14,17 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { multerOptions } from './config/multer.config';
 import { createReadStream } from 'fs';
 import { join } from 'path';
+import { BookCoverEntity } from './entities/bookCover.entity';
+import { ApiBearerAuth, ApiCreatedResponse } from '@nestjs/swagger';
 
 @Controller('cover')
 export class CoverController {
   constructor(private readonly coverService: CoverService) {}
 
   @Post('upload')
+  @ApiBearerAuth()
   @UseInterceptors(FileInterceptor('cover', multerOptions))
+  @ApiCreatedResponse({ type: BookCoverEntity })
   uploadCover(
     @UploadedFile()
     file: Express.Multer.File,

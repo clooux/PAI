@@ -7,11 +7,13 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  HttpCode,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import {
+  ApiBearerAuth,
   ApiCreatedResponse,
   ApiNoContentResponse,
   ApiOkResponse,
@@ -31,6 +33,7 @@ export class UserController {
   }
 
   @Get()
+  @ApiBearerAuth()
   @ApiOkResponse({ type: UserEntity, isArray: true })
   getUsers() {
     return this.userService.getAllUsers();
@@ -52,6 +55,8 @@ export class UserController {
   }
 
   @Delete(':id')
+  @HttpCode(204)
+  @ApiBearerAuth()
   @ApiNoContentResponse()
   deleteUser(@Param('id', ParseIntPipe) id: number) {
     return this.userService.deleteUserById(id);

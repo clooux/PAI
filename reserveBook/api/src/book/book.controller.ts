@@ -8,7 +8,6 @@ import {
   Delete,
   ParseIntPipe,
   HttpCode,
-  UseGuards,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -21,7 +20,6 @@ import { BookService } from './book.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { BookEntity } from './entities/book.entity';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { BookSimpleEntity } from './entities/bookSimple.entity';
 
 @Controller('book')
