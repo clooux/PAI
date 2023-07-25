@@ -8,16 +8,23 @@ Adam Walka (backend), Michał Myśliwiec (frontend)
 
 ## Identyfikacja zagadnienia biznesowego
 
-Celem projektu to stworzenie aplikacji do zarządzania biblioteką książek jak i również, która umożliwia łatwy i przystępniejszy dostęp wszystkim osobom korzystającym z usług biblioteki. Począwszy od osób chcących wypożyczyć książkę przez internet, skończywszy na osobach które pracują w danej bibliotece i zarządzają procesami występującymi w obsłudze całej placówki. Wszyscy użytkownicy chcący korzystać w pełni z aplikacji mogą się w prosty sposób zarejestrować a następnie zalogować aby korzystać z odpowiednio dobranych części aplikacji do roli użytkownika.
-Zwykły użytkownik jest w stanie sprawdzić stan biblioteki i wybrać sobie pozycję do wypożyczenia, a następnie zarezerwować ją aby móc odebrać fizyczną wersję w placówce. Administrator biblioteki jest w stanie sprawdzić stan całej placówki, dodać nowe pozycje jak i również zaktualizować stan magazynu. Aplikacja w pełni rozwiązuje problem prowadzenia biblioteki i obsługi klientów. W razie możliwości i nowych potrzeb, sama aplikacja powinna zostać rozszerzana do wymagań klienta.
+Celem niniejszego projektu jest stworzenie aplikacji do kompleksowego zarządzania biblioteką książek oraz umożliwienie wygodnego i dostępnego użytkownikom dostępu do usług bibliotecznych. Aplikacja będzie zapewniała różne funkcjonalności, począwszy od użytkowników, którzy chcą korzystać z wypożyczania książek przez internet, aż po pracowników biblioteki odpowiedzialnych za skuteczną obsługę całej placówki. Dla pełnego korzystania z aplikacji, wszyscy użytkownicy będą mieli możliwość prostego zarejestrowania się oraz zalogowania, co pozwoli na dostęp do odpowiednich sekcji aplikacji, dostosowanych do roli użytkownika.
+
+Zwykli użytkownicy będą w stanie przeglądać dostępność książek w bibliotece i wybierać interesujące je pozycje do wypożyczenia. Ponadto, będą mieli możliwość zarezerwowania wybranej książki, umożliwiając odebranie fizycznej kopii w placówce. Administratorzy biblioteki będą mieli pełny wgląd w stan biblioteki, umożliwiając im dodawanie nowych pozycji oraz aktualizowanie stanu magazynowego. Aplikacja w pełni rozwiąże problemy związane z prowadzeniem biblioteki i obsługą klientów. Co więcej, będzie elastyczna i gotowa do ewentualnych rozszerzeń i dostosowania do nowych potrzeb, wynikających z wymagań klienta.
 
 ## Wymagania systemowe i funkcjonalne
 
-Cały projekt oparto na architekturze MVC. W której modelami są encje w bazie PostgreSQL, kontrolerem aplikacja oparta na frameworku NestJS a widokami zarządza aplikacja Reactowa. Jako sposób komunikacji pomiędzy widokiem a kontrolerem wykorzystano sposób zasad określonych przez REST API przy wykorzystaniu wbudowanej asynchronicznej funkcji fetch. W przypadku połączenia pomiędzy bazą danych a aplikacją backendową wykorzystano ORM - Prisma. Do stylizacji aplikacji frontendowej wykorzystano TailwindCSS. Autoryzację i autentykację oparto tokenie JWT i bibliotece Passport.js. Do wysyłania zdjęć na serwer wykorzystano bibliotekę Multer.
+Projekt w pełni opiera się na architekturze MVC. Modelami w tej strukturze są encje przechowywane w bazie danych PostgreSQL. Kontrolerem aplikacji jest część backendowa zbudowana na frameworku NestJS. Natomiast za zarządzanie widokami odpowiedzialna jest aplikacja frontendowa, wykorzystująca technologię React.
+
+W celu komunikacji między widokiem a kontrolerem zastosowano REST API. Przy połączeniu aplikacji backendowej z bazą danych wykorzystano ORM - Prisma, co zapewnia efektywne i wygodne operacje na danych.
+
+Do stylizacji aplikacji frontendowej użyto narzędzia TailwindCSS, dostarczając estetyczny i spójny wygląd interfejsu użytkownika. W kwestii autoryzacji i autentykacji, projekt opiera się na zastosowaniu tokenów JWT i biblioteki Passport.js, co gwarantuje bezpieczny dostęp i zarządzanie tożsamością użytkowników.
+
+Dodatkowo, w celu przesyłania zdjęć na serwer, wykorzystano bibliotekę Multer, co pozwala na sprawną i wydajną obsługę tego procesu. Całość tej zaawansowanej infrastruktury składa się na funkcjonalną i nowoczesną aplikację do zarządzania biblioteką książek, która spełnia oczekiwania zarówno klientów, jak i pracowników biblioteki.
 
 Funkcjonalności:
 
-1. Wspólne:
+1. Podstawowe:
    - Logowanie użytkownika
    - Rejestracja użytkownika
    - Informacje na temat systemu
@@ -25,11 +32,11 @@ Funkcjonalności:
    - Wyświetlanie informacji na temat pojedynczej książki
    - Wyświetlanie informacji o stanie magazynowym książki
    - Informacje o użytkowniku
-2. Aplikacja kliencka:
+2. Funkcje dla klientów:
    - Wyświetlanie informacji na temat aktualnych wypożyczeń
    - Wyświetlanie informacji na temat poprzednich wypożyczeń
    - Możliwość rezerwacji książki
-3. Aplikacja administratorska
+3. Funkcje dla administratora:
    - Wyświetlanie stanu magazynu
    - Wyświetlanie wszystkich aktualnych wypożyczeń
    - Wyświetlanie zakończonych wypożyczeń
@@ -46,13 +53,15 @@ Ogólny diagram związków encji
 
 ![database_full_view](images/db_full.png)
 
-W momencie otrzymania zapytania do serwera, aplikacja serwerowa wybiera odpowiednią ścieżkę która prowadzi do konkretnej metody konkretnego kontrolera. Kontroler odwołuje się do metod serwisu przypisanego do kontrolera. Serwisy wykonują odpowiednią przypisaną logikę biznesową. W większości przypadków serwisy korzystają z serwisu biblioteki ORM która posiada dostęp do danych biznesowych. Wartość wyjściowa z serwisu zwracana jest do kontrolera który zwraca wyniki w postaci odpowiedzi na zapytanie.
+Po otrzymaniu zapytania do serwera, aplikacja serwerowa wybiera odpowiednią ścieżkę prowadzącą do konkretnej metody określonego kontrolera. Kontroler odwołuje się do metod serwisu przypisanego do swojej odpowiedzialności. Serwisy implementują dedykowaną logikę biznesową, korzystając z serwisu biblioteki ORM, który zapewnia dostęp do danych biznesowych. Wynik działania serwisu jest przekazywany z powrotem do kontrolera, który następnie generuje odpowiedź na zapytanie i zwraca wyniki.
 
-Do dokumentacji listy zasobów wykorzystano narzędzie Swagger. Dostęp do tej dokumentacji można uzyskać poprzez wejście na podstronę `/api` serwera. Taki sposób dokumentacji ułatwia pracę pomiędzy stroną backendową i frontendową. Wynika to z prostoty dostępu jak i sprawdzenia możliwości aplikacji serwerowej. Ze względu na dużą ilość endpointów oraz wykorzystanych przy nich encji zdecydowano się nie wypisywać ich w poniższym pliku.
+Dokumentacja listy zasobów została udokumentowana przy użyciu narzędzia Swagger. Aby uzyskać dostęp do tej dokumentacji, należy wejść na podstronę `/api` na serwerze. Taki sposób dokumentowania ułatwia współpracę pomiędzy stroną backendową i frontendową. Pozwala to na łatwy dostęp i sprawdzenie możliwości aplikacji serwerowej. W związku z licznymi endpointami oraz używanymi encjami, postanowiono nie wypisywać ich szczegółów w niniejszym opisie.
 
 ## Implementacja
 
-PostgreSQL został wybrany na bazę danych w projekcie. Baza danych hostowana jest za darmo platformie wdrożeniowej Railway. Zdecydowano się na taką opcję ze względu na łatwiejszy dostęp przez obydwie osoby tworzące obiekt. Takie rozwiązanie oznacza te same dane ale co istotniejsze to samo odzwierciedlenie w encjach. Do połączenia wykorzystano ORM o nazwie Prisma. Przy instalacji tworzony jest folder `prisma` w którym zawarte są: źródło danych, generator i model danych. Poniżej znajduje się kawałek kodu z wymienionymi wyżej składowymi:
+PostgreSQL został wybrany jako system zarządzania bazą danych w projekcie. Baza danych jest hostowana na platformie wdrożeniowej Railway. Wybór takiej opcji wynika z ułatwienia wspólnego dostępu dla obu członków zespołu projektowego. Dzięki temu rozwiązaniu możliwe jest korzystanie z tych samych danych oraz zapewnienie jednolitego odzwierciedlenia w encjach.
+
+W celu nawiązania połączenia z bazą danych, wykorzystano ORM o nazwie Prisma. W trakcie instalacji projektu generowany jest folder o nazwie `prisma`, zawierający kluczowe elementy, takie jak źródło danych, generator oraz model danych. Właśnie dzięki temu narzędziu możliwe jest wygodne zarządzanie danymi, zapewniając spójność oraz efektywność w obszarze odzwierciedlenia informacji w aplikacji. Poniżej przedstawiono fragment kodu, w którym uwzględnione zostały wymienione wyżej składowe:
 
 ```js
 generator client { provider = "prisma-client-js" }
@@ -67,7 +76,7 @@ model Storage {
 }
 ```
 
-Po stronie serwera wykorzystano bibliotekę NestJS która oparta jest na bibliotece Express bazującej na środowisku Node.js. W celu korzystania z ORM'a w aplikacji trzeba stworzyć folder `prisma` wraz z modułem i serwisem. Moduł potrzebny będzie do dalszego wykorzystania instancji napisanego serwisu. Serwis będzie rozszerzał interfejs `PrismaClient` i implementował metodę `OnModuleInit `która będzie sprawi, iż serwis zachowa się jak singleton. Poniżej znajduje się implementacja serwisu:
+Po stronie serwera, w projekcie zastosowano bibliotekę NestJS, która opiera się na bibliotece Express i wykorzystuje środowisko Node.js. W celu korzystania z ORM-a, należy stworzyć folder o nazwie `prisma`, a także odpowiednie moduły i serwisy. Moduł jest potrzebny do dalszego wykorzystania instancji napisanego serwisu. Serwis będzie rozszerzał interfejs `PrismaClient` i zaimplementuje metodę `OnModuleInit`, co pozwoli na zachowanie serwisu jako singleton. Poniżej znajduje się implementacja serwisu:
 
 ```js
 export class PrismaService extends PrismaClient implements OnModuleInit {
@@ -75,7 +84,9 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
 }
 ```
 
-Każda aplikacja napisana w tym frameworku posiada jeden główny moduł. Jest on punktem wyjścia którego Nest używa do zbudowania grafu aplikacji - wewnętrznej struktury danych. Nest używa tego do rozwiązywania relacji i zależności między modułami i dostawcami. Poniżej kod głównego modułu:
+Główny moduł, oznaczony jako MainModule, jest punktem wyjścia aplikacji. W module tym deklarujemy kontrolery i usługi, a także inne moduły dostawców, jak na przykład PrismaService wykorzystany do korzystania z Prisma ORM.
+
+Moduł ten jest kluczowym elementem struktury aplikacji w NestJS. Umożliwia zbudowanie wewnętrznego grafu aplikacji, co pozwala na łatwe rozwiązywanie relacji i zależności między różnymi modułami i dostawcami. Jest to przydatne, gdy aplikacja staje się bardziej złożona i wymaga zarządzania wieloma elementami, takimi jak kontrolery, serwisy, filtry, middleware itp.
 
 ```js
 @Module({
@@ -90,8 +101,11 @@ Każda aplikacja napisana w tym frameworku posiada jeden główny moduł. Jest o
   ],
 ```
 
-Plikiem inicjalizującym całą aplikację jest `main.ts`, w którym importowany jest główny moduł. W tym miejscu możemy również skonfigurować aplikację.
-Większość zasobów posiada bardzo podobną strukturę i budowę. Kontroler który przekazuje informacje zawarte w zapytaniu do serwisu który łączy się z bazą danych przez serwis ORM, a na samym końcu zwracający informacje otrzymane z bazy danych. Poniżej przykład dla tworzenia książki:
+Plik main.ts stanowi kluczowy punkt inicjalizacji całej aplikacji w frameworku NestJS. To tutaj importowany jest główny moduł, który pełni rolę punktu wejścia do struktury aplikacji.
+
+W większości przypadków, zasoby takie jak kontrolery, serwisy oraz połączenie z bazą danych, wykazują podobną strukturę i budowę. Kontroler odpowiada za odbiór informacji zawartych w zapytaniu i przekazuje je do serwisu. Serwis, z kolei, komunikuje się z bazą danych za pomocą serwisu ORM, a otrzymane dane są na końcu zwracane w odpowiedzi.
+
+Ta spójność w budowie i strukturze zasobów pomaga w utrzymaniu czytelności i uporządkowania kodu, co przyczynia się do zwiększenia łatwości zarządzania oraz rozwoju aplikacji w frameworku NestJS. Poniżej znajduje się przykład struktury dla funkcji tworzenia książki, który ilustruje typową architekturę kontrolera, serwisu i ORM w aplikacji NestJS:
 
 ```js
   @ApiCreatedResponse({ type: BookEntity })
@@ -108,7 +122,7 @@ Większość zasobów posiada bardzo podobną strukturę i budowę. Kontroler kt
   }
 ```
 
-Ważnym elementem projektu jest Autentykacja dlatego poniżej przedstawiono funkcję logowania:
+Poniżej przedstawiona jest funkcja logowania, która stanowi ważny element projektu w zakresie autentykacji. Funkcja ta obsługuje proces uwierzytelniania użytkownika w aplikacji.
 
 ```js
 async login(email: string, password: string): Promise<AuthEntity> {
@@ -125,22 +139,25 @@ async login(email: string, password: string): Promise<AuthEntity> {
     };
   }
 ```
-Na początku wykonuje się sprawdzenie czy podany użytkownik istnieje. W przypadku gdy nie istnieje zwracany jest kod błędu nie znaleziono. Następuje sprawdzenie czy podane hasło jest równe temu hasło które wysłał użytkownik. Gdy hasło jest niepoprawne zwracany jest błąd autoryzacji. W innym przypadku zwracany jest podpisany token JWT wraz z podstawowymi informacjami o użytkowniku. Wykorzystywany jest serwis JWT wbudowany w Nest. Inicjalizowany jest on za pomocą importu w module zasobu auth. Dodatkowo wykorzystywana jest strategia z bilbioteki Passport - `PassportStrategy`. Która przechwytuje i waliduje przesyłany token.
 
-Kolejnym specjalnym zasobem jest wysyłanie i pobieranie zdjęć okładek książek.
-Głównym elementem jest konfiguracja biblioteki Multer odpowiedzialnej za sprawdzenie, przetworzenie i przesłanie pliku na serwer. W opcjach przekazane są: limit wielkości pliku(ok. 5 mB), filtracja odpowiednich rozszerzeń czy to jak ma zostać przechowywany plik(miejsce na serwerze, nazwa pliku). Opcje wykorzystywane są w dekoratorze endpointu `@UseInterceptors(FileInterceptor('cover', multerOptions))`.
+W pierwszym etapie następuje weryfikacja, czy podany użytkownik istnieje w systemie. Jeśli użytkownik nie istnieje, zwracany jest kod błędu "Not Found". Następnie sprawdzane jest, czy podane hasło jest zgodne z hasłem przechowywanym w bazie danych dla tego użytkownika. W przypadku nieprawidłowego hasła, aplikacja zwraca błąd autoryzacji. W przeciwnym razie generowany jest podpisany token JWT, zawierający podstawowe informacje o użytkowniku.
 
-Po stronie klienta wykorzystano bilbiotekę React wraz takimi bilbiotekami jak:
-- React Router
-- TailwindCSS
-- DaisyUI
-- Zustand
-- React Query
-- React Hook Form
+Aby umożliwić uwierzytelnianie przy użyciu JWT, aplikacja wykorzystuje wbudowany serwis `JwtService` dostępny w NestJS. Serwis ten jest zainicjalizowany w module zasobu "auth". Dodatkowo używana jest strategia `PassportStrategy` z biblioteki Passport, która przechwytuje i waliduje przesyłany token JWT.
 
-TailwindCSS wraz z DaisyUI odpowiadają za wygląd całej aplikacji.
-Plikiem w którym inicjalizowana jest aplikacja jest `main.tsx`. Znajdują się w nim providery do tarasowania poprzez bibliotekę React Router, jak i bibliotekę do fetchowania danych - React Query. Która znacznie ułatwia operowanie pobieranymi danymi.
-Natomiast w głównym pliku aplikacji czyli `App.jsx` zdefiniowane są podstawy routingu, takie jak trasy ale również funkcja będącą odzwierciedleniem prywatnej trasy. Dodatkowo znajduje się też kod który utrzymuje stan zalogowania użytkownika, poprzez odczytanie tokenu JWT z local storage.
+Kolejnym istotnym zasobem jest funkcjonalność wysyłania i pobierania zdjęć okładek książek. Główny element tej funkcji to konfiguracja biblioteki Multer, która odpowiada za przetwarzanie i przechwytywanie przesyłanego pliku na serwer. W opcjach konfiguracyjnych przekazywane są różne parametry, takie jak limit wielkości pliku (np. 5 MB), filtracja odpowiednich rozszerzeń plików i określenie, w jaki sposób mają być przechowywane na serwerze. Te opcje są używane w dekoratorze endpointu `@UseInterceptors(FileInterceptor('cover', multerOptions))`, który pozwala na korzystanie z funkcjonalności biblioteki Multer w odpowiednim miejscu aplikacji.
+
+Strona klienta wykorzystuje bibliotekę React wraz z dodatkowymi narzędziami, które umożliwiają rozbudowane i efektywne tworzenie interfejsu użytkownika. Poniżej znajduje się przegląd używanych bibliotek i komponentów:
+  - React Router: Jest wykorzystywany do zarządzania trasowaniem w aplikacji, co pozwala na dynamiczne renderowanie komponentów w zależności od ścieżki URL. 
+  - TailwindCSS i DaisyUI: Te biblioteki odpowiedzialne są za stylizację i wygląd całej aplikacji. TailwindCSS zapewnia podstawowe komponenty stylizacyjne, natomiast DaisyUI dostarcza dodatkowe gotowe komponenty, które ułatwiają tworzenie interfejsu użytkownika.
+  - Zustand: Jest to biblioteka zarządzania stanem aplikacji, która umożliwia przechowywanie i udostępnianie stanu w całej aplikacji, dzięki czemu komponenty mogą łatwo komunikować się i współdzielić dane.
+  - React Query: Ta biblioteka dostarcza narzędzia do łatwego i wydajnego fetchowania danych z serwera. Umożliwia również cache'owanie danych, odświeżanie i automatyczne ponawianie zapytań.
+  - React Hook Form: Jest to biblioteka do zarządzania formularzami, która ułatwia walidację, obsługę pól formularza oraz przesyłanie danych.
+
+Plikem inicjalizującym aplikację na stronie klienta jest main.tsx, który jest odpowiednikiem pliku main.ts po stronie serwera. W tym pliku znajdują się providery, które odpowiedzialne są za zarządzanie stanem, routing za pomocą biblioteki React Router oraz fetchowanie danych przy użyciu React Query.
+
+W głównym pliku aplikacji, czyli App.jsx, zdefiniowane są podstawy routingu, czyli trasy, które decydują o renderowaniu odpowiednich komponentów w zależności od ścieżki URL. W tym pliku znajduje się również funkcja, która obsługuje prywatne trasy, czyli dostęp do określonych stron wymagający uwierzytelnienia.
+
+Dodatkowo, w tym pliku utrzymywany jest stan zalogowania użytkownika poprzez odczytanie tokenu JWT z local storage, co pozwala na zapewnienie odpowiednich uprawnień i funkcjonalności dla zalogowanych użytkowników.
 ```jsx
   return (
     <Routes>
@@ -154,7 +171,7 @@ Natomiast w głównym pliku aplikacji czyli `App.jsx` zdefiniowane są podstawy 
           <Route index element={ <PrivateRoute> <UserPage /> </PrivateRoute> }/>
 ```
 
-Zustand to menadżer stanu przechowywujący informacje na temat zalogowanego użytkownika. W poniższym kodzie tworzony jest stan początkowy wraz z możliwymi akcjami do wykonania, oraz główna część czyli stworzenie pojedynczego magazynu danych dla całej aplikacji.
+Zustand
 ```js
 export const useUserStore = create<State & Actions>()((set) => ({
   ...initialState,
@@ -163,12 +180,12 @@ export const useUserStore = create<State & Actions>()((set) => ({
 }));
 ```
 
-React Router jest bardzo przydatny przy pobieraniu danych, dzięki wykorzystaniu hooków `useQuery` i `useMutation` jesteśmy w stanie dowiedzieć się w jakim stanie jest nasze zapytanie a także możemy bezpośrednio korzystać z danych.
+React Router 
 ```js
 const { data: book, isLoading, isError, } = useQuery({ queryKey: ["book"], queryFn: async () => getBook(bookId as string), });
 ```
 
-React Hook Form natomiast to proste tworzenie formularzy i przekazywanie ich stanu. Poniżej przykład logowania:
+React Hook Form 
 ```jsx
  const { register, handleSubmit, formState: { errors } } = useForm<SignInUser>();
   return (
@@ -184,15 +201,10 @@ React Hook Form natomiast to proste tworzenie formularzy i przekazywanie ich sta
 
 ## Podsumowanie
 
-Stworzona aplikacja spełnia zawężone wymagania biznesowe. Pokazuje możliwość dalszego rozwoju i produkcji bardziej zaawansowanej strony. Jednakże spełnia jedno z najważniejszych założeń początkowych faz projektów czyli wypuszczenia jej do użytkowników aby umożliwić im łatwiejszy dostęp do wypożyczania książek. Aplikacja posiada działające funkcjonalności z części wspólnej jak i z części aplikacji klienckiej. Po stronie serwera zaimplementowano wszystkie główne funkcjonalności, mimo to stworzenie części administratorskiej po stronie klienta równałoby się ze stworzeniem de facto całej osobnej aplikacji.
+Aplikacja została wdrożona zgodnie z zawężonymi wymaganiami biznesowymi, umożliwiając użytkownikom łatwiejszy dostęp do wypożyczania książek. Obejmuje funkcjonalności zarówno z części podstawowej, jak i z aplikacji klienckiej. W części serwerowej zaimplementowano wszystkie główne funkcje, jednak stworzenie części administratorskiej po stronie klienta wymagałoby znacznego nakładu pracy, co praktycznie równałoby się tworzeniu osobnej aplikacji.
 
-Z większych trudności po stronie backendowej okazały się: obsługa tokenów JWT i biblioteki Passport oraz umieszczanie wysyłanych zdjęć okładek na serwer. Dodatkowo problemem przy okazji budowania bardziej zaawansowanej struktury bazy danych, przez brak wiedzy i doświadczenia w tym zakresie.
+Podczas prac nad backendem, pojawiły się pewne wyzwania, w tym obsługa tokenów JWT i biblioteki Passport oraz przetwarzanie i umieszczanie zdjęć okładek na serwerze. Dodatkowo, budowanie bardziej zaawansowanej struktury bazy danych było trudne z powodu ograniczonej wiedzy i doświadczenia w tym obszarze.
 
-Jeżeli chodzi o frontend to problem ukazał się przy okazji korzystania z biblioteki Tailwind pomimo, iż odzwierciedla klasy CSS jest to całkowicie inny sposób pisania styli. Początkowo trudności wystąpiły przy korzystaniu biblioteki React Query.
+W przypadku frontendu, niektóre problemy pojawiły się przy korzystaniu z biblioteki TailwindCSS, która, mimo odzwierciedlenia klas CSS, wymaga innego podejścia do pisania stylów. Początkowo również napotkano trudności z biblioteką React Query.
 
-Oczywiście rozwój powinien następować w kierunku stworzenia części administratorskiej jednakże, pomimo wypisania dużej części funkcji aplikacji możliwe jest:
-
-- stworzenie osobnej encji kategorii, która łączyłaby kilka gatunków w sobie
-- możliwość filtracji po autorach czy dodanych kategoriach, czy innych właściwościach
-- analityka i śledzenie zachowań użytkownika
-- możliwość udostępniania wersji pdf książek z otwartych źródeł
+Warto podkreślić, że rozwój aplikacji powinien następować w kierunku stworzenia części administratorskiej. Wśród możliwych rozszerzeń funkcjonalności znajduje się dodanie encji kategorii, umożliwienie filtrowania po autorach czy dodanych kategoriach, analiza i śledzenie zachowań użytkowników, a także udostępnienie wersji PDF książek z otwartych źródeł.
