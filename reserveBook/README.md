@@ -42,15 +42,15 @@ Funkcjonalności:
 
 Ogólny diagram związków encji
 
-![[Pasted image 20230725132314.png]]
+![database_full_view][[images/db_full.png]]
 
 Diagram związków encji dla książki
 
-![[Pasted image 20230725132546.png]]
+![database_book][[images/db_book.png]]
 
 Diagram związków encji dla użytkownika
 
-![[Pasted image 20230725132747.png]]
+![database_user][[images/db_user.png]]
 
 W momencie otrzymania zapytania do serwera, aplikacja serwerowa wybiera odpowiednią ścieżkę która prowadzi do konkretnej metody konkretnego kontrolera. Kontroler odwołuje się do metod serwisu przypisanego do kontrolera. Serwisy wykonują odpowiednią przypisaną logikę biznesową.  W większości przypadków serwisy korzystają z serwisu biblioteki ORM która posiada dostęp do danych biznesowych. Wartość wyjściowa z serwisu zwracana jest do kontrolera który zwraca wyniki w postaci odpowiedzi na zapytanie.
 
@@ -105,7 +105,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
 ```
 
 NestJS w odróżnieniu od Expressa posiada zdefiniowaną strukturę pokazaną na zdjęciu poniżej:
-![[Pasted image 20230725150856.png]]
+![nest_modules][[images/nest_module.png]]
 
 Każda aplikacja napisana w tym frameworku posiada jeden główny moduł. Jest on punktem wyjścia którego Nest używa do zbudowania grafu aplikacji - wewnętrznej struktury danych. Nest używa tego do rozwiązywania relacji i zależności między modułami i dostawcami. Poniżej kod głównego modułu: 
 ```js
@@ -176,7 +176,7 @@ bootstrap();
 ```
 
 Każdy katalog to osobny zasób który łączony jest przez własny moduł jest z modułem głównym. Katalogi posiadają strukturę pokazaną na poniższym zdjęciu: 
-![[Pasted image 20230725152724.png]]
+![nest_resource][[images/nest_resource.png]]
 
 Większość zasobów posiada bardzo podobną strukturę i budowę. Kontroler który przekazuje informacje zawarte w zapytaniu do serwisu który łączy się z bazą danych przez serwis ORM, a na samym końcu zwracający informacje otrzymane z bazy danych. Poniżej przykład dla tworzenia książki: 
 
