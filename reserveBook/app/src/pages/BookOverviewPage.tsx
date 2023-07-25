@@ -39,7 +39,7 @@ function BookOverviewPage() {
       <h1 className="text-5xl font-bold">Books in our collection:</h1>
       <div className="flex flex-row mt-12 flex-wrap justify-center">
         {books.map((book) => (
-          <BookCard {...book} key={book.id} />
+          <BookCard {...book}  key={book.id} />
         ))}
       </div>
     </div>

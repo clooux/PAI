@@ -30,7 +30,7 @@ function Avatar() {
             <NavLink to="/user">User</NavLink>
           </li>
           <li>
-            <a onClick={logout}>Logout</a>
+            <a onClick={() => logout()}>Logout</a>
           </li>
         </ul>
       </div>

@@ -13,7 +13,8 @@ const getImage = async (imageURL: string) => {
 
 function BookCard(book: Book) {
   const { data: bookCoverImg } = useQuery({
-    queryKey: ["bookCover", book.BookCover],
+    queryKey: ["bookCover", book?.BookCover?.id],
+    enabled: book?.BookCover?.id != null,
     queryFn: () => getImage(book.BookCover.imageURL),
   });
 
@@ -25,7 +26,7 @@ function BookCard(book: Book) {
             <img className="h-80" src={bookCoverImg} alt="Book" />
           ) : (
             <div className="flex justify-center items-center w-full h-80 bg-base-100">
-              <TbPhotoCancel />
+              <TbPhotoCancel size="70" />
             </div>
           )}
         </figure>

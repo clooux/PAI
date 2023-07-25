@@ -1,14 +1,15 @@
 import { Link, useParams } from "react-router-dom";
 import { ApiURL } from "../api/api";
-import { BookDetails } from "../models/Book";
+import { BookDetailed } from "../models/Book";
 import { useQuery } from "@tanstack/react-query";
 import { TbPhotoCancel } from "react-icons/tb";
+import { BookStorage } from "../models/BookStorage";
 
 const getBook = async (id: string) => {
   const response = await fetch(ApiURL + "book/" + id, {
     method: "GET",
   });
-  const data = (await response.json()) as Promise<BookDetails>;
+  const data = (await response.json()) as Promise<BookDetailed>;
   return data;
 };
 
@@ -17,6 +18,14 @@ const getImage = async (imageURL: string) => {
   const blob = await response.blob();
   const imgBlob = URL.createObjectURL(blob);
   return imgBlob;
+};
+
+const getFreeCopies = async (id: string) => {
+  const response = await fetch(ApiURL + "storage/free/" + id, {
+    method: "GET",
+  });
+  const data = (await response.json()) as Promise<BookStorage[]>;
+  return data;
 };
 
 function BookPage() {
@@ -28,12 +37,18 @@ function BookPage() {
     isError,
   } = useQuery({
     queryKey: ["book"],
-    queryFn: () => getBook(bookId as string),
+    queryFn: async () => getBook(bookId as string),
   });
 
   const { data: bookCoverImg } = useQuery({
     queryKey: ["bookCover", book?.id],
-    queryFn: () => getImage(book?.BookCover.imageURL as string),
+    enabled: book?.id != null,
+    queryFn: async () => getImage(book?.BookCover.imageURL as string),
+  });
+
+  const { data: freeCopies } = useQuery({
+    queryKey: ["bookFreeCopies", book?.id],
+    queryFn: async () => getFreeCopies(bookId as string),
   });
 
   if (isLoading) {
@@ -45,7 +60,7 @@ function BookPage() {
   }
 
   return (
-    <div className="flex flex-col items-center w-full h-full bg-base-200">
+    <div className="flex flex-col items-center w-full h-full min-h-full bg-base-200">
       <div className="flex flex-row items-start p-20 ">
         <div className="flex flex-col justify-center items-center">
           <div className="flex justify-center items-center bg-secondary rounded-lg shadow-sm h-[22rem] min-h-[22rem] w-[18rem] min-w-[18rem]">
@@ -57,12 +72,19 @@ function BookPage() {
               </div>
             )}
           </div>
+          <div className="text-info mt-3">
+            {freeCopies?.length} out of {book?.storage?.length} free
+          </div>
           <Link
-            to={"/user/borrow"}
-            state={{ bookId: book?.id, storageId: "1" }}
-            className="btn btn-primary mt-5 w-40"
+            to={"/user/reserve"}
+            state={{ book, bookCoverImg }}
+            className={`btn mt-5 w-40 ${
+              !freeCopies?.length || !book?.storage?.length
+                ? "btn-disabled"
+                : "btn-primary"
+            }`}
           >
-            Rent
+            Reserve
           </Link>
         </div>
 

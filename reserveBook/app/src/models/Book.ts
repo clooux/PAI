@@ -1,4 +1,5 @@
 import { Author } from "./Author";
+import { BookStorage } from "./BookStorage";
 
 export interface Book {
   id: number;
@@ -6,7 +7,7 @@ export interface Book {
   BookCover: BookCover;
 }
 
-export interface BookDetails extends Book {
+export interface BookDetailed extends Book {
   description: string;
   genre: string;
   publishingDate: string;
@@ -14,6 +15,7 @@ export interface BookDetails extends Book {
   publisher: string;
   language: string;
   authors: Author[];
+  storage: BookStorage[];
 }
 
 export interface BookCover {

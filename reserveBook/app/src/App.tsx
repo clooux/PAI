@@ -6,17 +6,27 @@ import LoginPage from "./pages/LoginPage";
 import BookPage from "./pages/BookPage";
 import BookOverviewPage from "./pages/BookOverviewPage";
 import UserPage from "./pages/UserPage";
-import BorrowPage from "./pages/BorrowPage";
+import ReservePage from "./pages/ReservePage";
 import { useUserStore } from "./stores/UserStore";
 import { ReactElement } from "react";
+import jwtDecode from "jwt-decode";
+import { User } from "./models/User";
 
 function PrivateRoute({ children }: { children: ReactElement }) {
-  console.log(children);
   const { id } = useUserStore();
-  return id ? children : <Navigate to="login" />;
+  return id ? children : <Navigate to="/login" />;
 }
 
 function App() {
+  const setUser = useUserStore((state) => state.setUser);
+
+  const accessToken = localStorage.getItem("accessToken");
+
+  if (accessToken) {
+    const decodedToken: User = jwtDecode(accessToken as string);
+    setUser(decodedToken);
+  }
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -35,10 +45,10 @@ function App() {
             }
           />
           <Route
-            path="borrow"
+            path="reserve"
             element={
               <PrivateRoute>
-                <BorrowPage />
+                <ReservePage />
               </PrivateRoute>
             }
           />
