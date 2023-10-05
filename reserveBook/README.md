@@ -158,6 +158,8 @@ Plikem inicjalizującym aplikację na stronie klienta jest main.tsx, który jest
 W głównym pliku aplikacji, czyli App.jsx, zdefiniowane są podstawy routingu, czyli trasy, które decydują o renderowaniu odpowiednich komponentów w zależności od ścieżki URL. W tym pliku znajduje się również funkcja, która obsługuje prywatne trasy, czyli dostęp do określonych stron wymagający uwierzytelnienia.
 
 Dodatkowo, w tym pliku utrzymywany jest stan zalogowania użytkownika poprzez odczytanie tokenu JWT z local storage, co pozwala na zapewnienie odpowiednich uprawnień i funkcjonalności dla zalogowanych użytkowników.
+
+React Router
 ```jsx
   return (
     <Routes>
@@ -180,7 +182,7 @@ export const useUserStore = create<State & Actions>()((set) => ({
 }));
 ```
 
-React Router 
+React Query 
 ```js
 const { data: book, isLoading, isError, } = useQuery({ queryKey: ["book"], queryFn: async () => getBook(bookId as string), });
 ```
